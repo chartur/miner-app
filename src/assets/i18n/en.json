@@ -73,7 +73,7 @@
   "start": "Start",
   "end": "End",
   "send": "Send",
-  "withdraw_info": "Withdrawal Requirements\n\nTo access the withdrawal feature, users must meet the following conditions:\n\n1. Deposit & Boost: Make an initial deposit and purchase a Boost package.\n 2. Minimum Balance: Accumulate at least 50 Ton coins.\n 3. Active Use: Be active in the app for at least one month.\n 4. Community Membership: Join our official communities to stay informed and connected.",
+  "withdraw_info": "Withdrawal Requirements\n\nTo access the withdrawal feature, users must meet the following conditions:\n\n1. Minimum Balance: Accumulate at least 30 Ton coins.\n 2. Active Use: Be active in the app for at least one month.\n 3. Community Membership: Join our official communities to stay informed and connected.",
   "communities": "Communities",
   "tib_coin_info_tooltip": "Tib Coin is an innovative cryptocurrency designed to deliver seamless, secure transactions with enhanced accessibility for everyday users. Currently in its development phase, Tib Coin is gearing up for a market launch soon, aiming to make digital transactions faster, more reliable, and globally inclusive."
 }

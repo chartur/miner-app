@@ -15,18 +15,15 @@
     height: 300px;
     max-height: 350px;
     background: linear-gradient(#5d89e1, #1a1c34);
-    //background: linear-gradient(#b1aeae, #585d93);
-    //background-image: url("../../assets/tasks/galaxy.jpg");
-    //background-repeat: no-repeat;
-    //background-size: cover;
     border-radius: 10px;
     overflow-y: scroll;
   }
 
   .coin-tooltip {
     color: white;
-    top: 50%;
-    right: 20%;
+    top: 100%;
+    left: 0;
+    width: 80%;
     background: radial-gradient(circle, rgb(88, 93, 99) 0%, rgb(23, 30, 38) 100%);
     padding: 20px;
     border-radius: 10px;

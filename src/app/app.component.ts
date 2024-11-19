@@ -8,8 +8,8 @@ import {LoadingComponent} from "../components/loading/loading.component";
 import {AuthStore} from "../stores/auth.store";
 import {delay, filter, Observable, take} from "rxjs";
 import {AppViaWebNotWorkingComponent} from "../pages/app-via-web-not-working/app-via-web-not-working.component";
-import {TelegramService} from "../services/telegram.service";
 import {RefsStore} from "../stores/refs-store.service";
+import {version} from "../app-version";
 
 @Component({
   selector: 'app-root',
@@ -31,26 +31,15 @@ import {RefsStore} from "../stores/refs-store.service";
 export class AppComponent implements OnInit {
   public title: string = 'Ton miner';
   public isAppLoaded$: Observable<boolean> = this.authStore.authLoading$;
-  public isAllowToMine: boolean = true
 
   constructor(
     private authStore: AuthStore,
     private refStore: RefsStore,
-    private tgService: TelegramService,
-  ) {
-
-
-    console.log(tgService.initDataString, "   asdsad")
-    // if () {
-    //
-    // }
-
-    if (this.tgService.platform !== 'unknown') {
-      this.isAllowToMine = true
-    }
-  }
+  ) {}
 
   ngOnInit() {
+    console.log(`%cThe app version is ${version}`, 'color: blue; font-weight: bold; font-size: 30px');
+
     this.isAppLoaded$.pipe(
       filter(loaded => !loaded),
       take(1),

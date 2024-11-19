@@ -2,6 +2,7 @@ import {StorageService} from "../services/storage.service";
 import {TelegramService} from "../services/telegram.service";
 import {AuthStore} from "../stores/auth.store";
 import {filter, firstValueFrom, tap} from "rxjs";
+import {environment} from "../environments/environment";
 
 export const getUserInitialData = (
   storageService: StorageService,
@@ -9,6 +10,13 @@ export const getUserInitialData = (
   authStore: AuthStore
 ) => {
   return async () => {
+
+    if (!telegramService.initDataString) {
+      alert("Please open the telegram app")
+      window.location.href = environment.botUrl;
+      return;
+    }
+
     if (!storageService.get<string | null>('token')) {
       const url = new URL(window.location.href);
       const refId = url.searchParams.get('ref');
