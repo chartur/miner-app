@@ -1,0 +1,8 @@
+<mat-dialog-content class="require-sub-container">
+  <img width="70" src="/assets/tg-color.png" alt="tgImg">
+  <span>{{ 'unlock_not_text' | translate }}</span>
+  <div class="w-100 d-flex flex-column align-items-center justify-content-center">
+      <button type="button" (click)="subscribeTgChanel()" class="btn w-75 sub-btn">{{ 'subscribe' | translate }}</button>
+      <button type="button" (click)="checkSubscription()" class="btn w-75 check-btn">{{ 'check_sub' | translate }}</button>
+  </div>
+</mat-dialog-content>

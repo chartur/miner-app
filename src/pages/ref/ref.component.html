@@ -1,0 +1,50 @@
+<div class="ref-container">
+  <div class="d-flex flex-column justify-content-start w-100 h-100">
+    <div class="w-100 d-flex justify-content-center">
+      <h4 class="text-white">{{ 'invitation_link' | translate }}</h4>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <p #link class="user-ref-link">{{ userRefLink }}</p>
+        <div class="d-flex gap-2 justify-content-between align-items-center">
+          <button class="btn button-invite-friends" (click)="shareRefLink()">
+            {{ 'invite_friends' | translate }}
+          </button>
+          <span class="text-white">
+            {{ 'or' | translate }}
+          </span>
+          <button class="btn button-copy" (click)="copyRefLink(link)">
+            {{ 'copy' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-100 d-flex align-items-center justify-content-center mt-5 mb-2">
+      <h6 class="text-white m-0 me-2">{{ 'income' | translate }} {{ totalRevenue$ | async }}</h6>
+      <img width="23" height="23" src="/assets/icon-ton-coin-blue1.png" alt="ton">
+    </div>
+    <div class="card ref-card">
+      <div class="card-body">
+        <h6 class="text-white">{{ 'referrals' | translate }}</h6>
+        <div class="text-white" *ngIf="refsLoading$ | async; else loaded">
+          ...Loading
+        </div>
+        <ng-template #loaded>
+          <ng-container *ngIf="refs.length; else emptyReferrals">
+            <div  *ngFor="let ref of refs" class="ref-item">
+              <span>{{ ref.referral.firstName }} {{ ref.referral.lastName }}</span>
+              <div class="d-flex align-items-center">
+                <span>+ {{ ref.revenueWithTon }}</span>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-template #emptyReferrals>
+            <span class="no-ref-ntf">{{ 'you_do_not_have_referrals' | translate }}</span>
+          </ng-template>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

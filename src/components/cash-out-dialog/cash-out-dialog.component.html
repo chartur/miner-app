@@ -1,0 +1,24 @@
+<div class="cash-out-dialog-container">
+  <div class="d-flex justify-content-between">
+    <h2 class="text-white m-0">{{ 'cash_out' | translate }}</h2>
+    <button mat-button mat-dialog-close>X</button>
+  </div>
+  <div class="position-relative">
+    <img (click)="openWithdrawTooltip()" width="25" src="/assets/icon-info.png" alt="info">
+    <div [style.display]="withdrawTooltipToggle" #infoTooltip [innerText]="tooltip | async" class="withdrawTooltip">
+    </div>
+  </div>
+  <div class="d-flex justify-content-center align-items-center flex-column input-group">
+    <div class="w-100 position-relative">
+      <input style="padding-right: 35px" [value]="tgService.qrStream$ | async" class="form-control" id="recipient" type="text" placeholder="Recipient address">
+      <img (click)="openQrReader()" width="24" class="scanner-icon" src="/assets/icon-qr-code.png" alt="">
+    </div>
+    <img class="my-2" width="40" src="/assets/icon-ton-coin-blue1.png" alt="cash-icon">
+    <div class="w-100">
+      <input (input)="validateAmount($event)" class="form-control" id="amount" type="text" placeholder="Amount">
+    </div>
+  </div>
+  <div class="">
+    <button [disabled]="disableWithdraw" (click)="sendTransaction()" class="btn confirm-btn">{{ 'send' | translate }}</button>
+  </div>
+</div>

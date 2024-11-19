@@ -1,0 +1,62 @@
+@import "../../custom-theme";
+
+@keyframes img-movement {
+  0%   {left:0; top:0;}
+  25%  {left:20px; top:-10px; transform: rotate(-40deg)}
+  45%  { left:20px; top:-300px; visibility: hidden }
+  60%  { left:0px; top:300px; visibility: hidden }
+  70% {left:0px; top: calc(-50% - 30px); visibility: visible; transform: rotate(-40deg)}
+  100% {left:0px; top: calc(-50% - 30px); visibility: visible; transform: rotate(0)}
+}
+
+.dialog-content {
+  font-family: "Nunito", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: $base-modal-bg;
+  background: $base-modal-gradient;
+
+  .header-row {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+
+    h1 {
+      margin: 0;
+      color: $base-white-color;
+    }
+  }
+
+  .dialog-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    & .boost-img {
+      position: relative;
+      animation-name: img-movement;
+      animation-duration: 3s;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+    }
+
+    .buy-bonus-info{
+      color: $base-white-color;
+      line-height: 1;
+      margin: 0;
+      text-align: center
+    }
+
+    & .buy-bonus {
+      color: $base-white-color;
+      border-radius: $base-border-radius;
+      width: 100%;
+      background: $primary-color;
+    }
+  }
+}

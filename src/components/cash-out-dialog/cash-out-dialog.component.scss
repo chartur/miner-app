@@ -1,0 +1,42 @@
+@import "../../custom-theme";
+
+.mat-mdc-dialog-surface {
+  background: radial-gradient(circle, rgb(235, 235, 235) 0%, rgb(134, 212, 233) 0%, rgb(0, 0, 0) 100%);
+}
+
+.cash-out-dialog-container {
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background: $base-modal-bg;
+  background: $base-modal-gradient;
+}
+
+.confirm-btn {
+  background-color: $primary-color;
+  color: white;
+  border-radius: 15px;
+  width: 100%;
+}
+
+.withdrawTooltip {
+  z-index: 2;
+  overflow: scroll;
+  max-height: 200px;
+  border-radius: 10px;
+  padding: 10px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  color: white;
+  background: #1a1c34; background: radial-gradient(circle, rgb(88, 93, 99) 0%, rgb(23, 30, 38) 100%);
+}
+
+.scanner-icon {
+  position: absolute;
+  right: 3%;
+  top: 20%;
+  cursor: pointer;
+}

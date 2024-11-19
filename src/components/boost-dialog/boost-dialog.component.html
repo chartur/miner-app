@@ -1,0 +1,17 @@
+<mat-dialog-content class="dialog-content">
+  <div class="header-row">
+    <h1 class="text-uppercase">
+      {{ data.name }}
+    </h1>
+    <button mat-button mat-dialog-close>X</button>
+  </div>
+  <div class="dialog-body">
+    <div style="height: 60px!important;">
+      <img class="boost-img" width="60" src="{{ data.imgSrc }}" alt="boost-img">
+    </div>
+    <p class="buy-bonus-info" [innerText]="description$ | async"></p>
+    <button [disabled]="loading$ | async" class="btn buy-bonus" (click)="activate()">
+      {{ 'activate' | translate }}
+    </button>
+  </div>
+</mat-dialog-content>

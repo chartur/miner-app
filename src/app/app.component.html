@@ -1,0 +1,18 @@
+<main #main class="main">
+  <div class="container" *ngIf="isAllowToMine; else notAllowed">
+      <div class="main-content" *ngIf="!(isAppLoaded$ | async); else notLoaded">
+        <router-outlet />
+      </div>
+      <ng-template #notLoaded>
+        <div class="flex-grow-1">
+          <app-loading></app-loading>
+        </div>
+      </ng-template>
+      <app-navbar />
+  </div>
+  <ng-template #notAllowed>
+    <div class="container web-app-not-found">
+      <app-app-via-web-not-working></app-app-via-web-not-working>
+    </div>
+  </ng-template>
+</main>

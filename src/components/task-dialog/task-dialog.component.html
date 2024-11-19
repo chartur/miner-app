@@ -1,0 +1,14 @@
+<mat-dialog-content class="task-container">
+    <div class="header-row d-flex justify-content-between align-items-center">
+      <h1 class="flex-grow-1 mb-0">
+        {{ data.title }}
+      </h1>
+      <button mat-button mat-dialog-close>X</button>
+    </div>
+    <img width="74" height="74" src="{{ data.imgSrc }}" alt="taskImg">
+    <div class="text-center text-white small">
+      {{ data.description }} and get + {{ data.profitByTibCoin }}
+      <img width="25" src="./assets/tasks/icon-coin.png" alt="">
+    </div>
+    <button class="btn confirm-btn" (click)="onClick()">{{ 'join' | translate }}</button>
+</mat-dialog-content>

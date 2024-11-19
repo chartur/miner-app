@@ -1,0 +1,60 @@
+@import "../../custom-theme";
+
+.ref-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+
+  .card {
+    background: $base-radial-gradient-sky-blue;
+  }
+
+  .user-ref-link {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: $base-white-color;
+  }
+
+  & .button-invite-friends {
+    background: $radial-gradient-black-gray;
+    flex-grow: 1;
+    border: 0;
+    color: $base-white-color;
+    font-size: 14px;
+  }
+
+  & .button-copy {
+    font-size: 14px;
+    background: $radial-gradient-black-gray;
+    color: $base-white-color;
+    border: 0;
+  }
+
+  & .ref-card {
+    overflow-y: scroll;
+    height: 250px;
+
+    .no-ref-ntf {
+      color: white;
+      font-size: 13px
+    }
+
+    & .ref-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #000000;
+      border-radius: 10px;
+      margin-block: 10px;
+      padding: 7px;
+      background: $radial-gradient-black-gray;
+
+      .ref-item, span  {
+        color: white;
+        font-size: 13px
+      }
+    }
+  }
+}

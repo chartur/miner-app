@@ -1,0 +1,121 @@
+@import "../../custom-theme";
+
+@media only screen and (max-height: 590px) {
+  .first-content {
+    padding-bottom: 0px!important;
+    border: unset!important;
+  }
+
+  .cash-out-component__cash-out-content {
+    margin-block: 10px!important;
+  }
+}
+
+.cash-out-component {
+  width: 100%;
+  height: 100%;
+  @extend %base-flex-column;
+  justify-content: space-between;
+
+  .first-content {
+    padding-bottom: 30px;
+    border-bottom: 1px solid #dadada;
+    border-radius: $base-border-radius;
+  }
+
+  &__cash-out-content {
+    width: 100%;
+    @extend %base-flex-column;
+    justify-content: start;
+    margin-block: 20px;
+
+    .cash-out-title {
+      color: $base-white-color;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .wallet-icon {
+      width: 34px;
+      padding-left: 10px;
+    }
+
+    .connect-wallet-title {
+      color: $base-white-color;
+    }
+
+    .btn {
+      border-radius: 10px;
+      background: $base-bg-blue-sky-white;
+      background: $base-radial-gradient-sky-blue;
+    }
+  }
+
+  &__user-info {
+    border-radius: $base-border-radius;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $secondary-color;
+    padding: .5rem;
+    height: 64px;
+
+    .prof-picture {
+      border-radius: $base-border-radius-rounded;
+      width: 48px;
+    }
+  }
+
+  .rate-list {
+    min-height: 100px;
+    max-height: 150px;
+    padding: 10px;
+    overflow-y: scroll;
+    border-radius: 15px;
+    background-color: $secondary-color;
+
+
+    .card-body:first-child {
+      border-bottom: 1px dotted #6c6c6c;
+    }
+
+    & .rate-value {
+      margin: 0;
+      font-size: 13px;
+      text-align: right;
+    }
+  }
+
+  .card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+
+    .value-title {
+      margin: 0;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .user-changed-value {
+      font-weight: 700;
+    }
+  }
+
+  .button-withdraw {
+    color: $base-white-color;
+    width: 100%;
+    padding: .5rem;
+    border-radius: 10px;
+    background: $base-radial-gradient-sky-blue;
+  }
+
+  .currency-icon {
+    width: 40%;
+  }
+
+  .btn-danger {
+    background: darkred;
+  }
+}

@@ -1,0 +1,48 @@
+@import "../../custom-theme";
+
+:host {
+  background: #120a0a;
+  border-radius: 8px;
+}
+
+.require-sub-container {
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background: $base-modal-bg;
+  background: $base-modal-gradient;
+
+  span {
+    font-size: 12px;
+    color: white;
+    text-align: center;
+  }
+}
+
+.sub-btn {
+  background-color: $primary-color;
+  color: $base-white-color;
+  margin-bottom: 10px;
+  border-radius: $base-border-radius;
+  font-weight: 300;
+
+  &:active {
+    background-color: $primary-color;
+  }
+}
+
+.check-btn {
+  background-color: $secondary-color;
+  color: black;
+  border-radius: $base-border-radius;
+  font-weight: 300;
+
+  &:active {
+    background-color: $secondary-color;
+  }
+}
+

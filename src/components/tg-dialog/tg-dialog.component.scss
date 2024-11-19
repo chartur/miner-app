@@ -1,0 +1,43 @@
+@import "../../custom-theme";
+
+.tg-dialog-container {
+  font-family: "Nunito", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  background: $base-modal-bg;
+  background: $base-modal-gradient;
+
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    & h1 {
+      color: $base-white-color;
+      font-size: 16px;
+    }
+  }
+
+  .card {
+    border: none;
+    background: linear-gradient(0.39turn, #3f87a6, #ebf8e1, #ae773c);
+    border-radius: $base-border-radius;
+
+    & .card-body {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      padding-block: 10px;
+    }
+  }
+
+  .confirm-btn {
+    color: $base-white-color;
+    width: 100%;
+    background-color: $primary-color;
+    border-radius: $base-border-radius;
+  }
+}

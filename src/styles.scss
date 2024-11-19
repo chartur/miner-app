@@ -1,0 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
+html, body {
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -moz-user-select: none;
+
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.mdc-dialog__container { transition: opacity linear var(--mat-dialog-transition-duration, 100ms) !important; } .mdc-dialog__surface { transition: transform, var(--mat-dialog-transition-duration, 10ms) !important; }
+.cdk-global-overlay-wrapper { justify-content: center!important; }
+.mat-mdc-dialog-surface {
+  background-color: black!important;
+}
+
+.mat-mdc-snackbar-surface {
+  width: 90%!important;
+  background: radial-gradient(circle, rgb(79, 79, 79) 0%, rgb(1, 20, 50) 100%)!important;
+  background-color: rgb(79, 79, 79);
+  border-radius: 10px!important;
+  margin-top: 12px;
+}

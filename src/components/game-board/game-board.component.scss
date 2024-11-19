@@ -1,0 +1,194 @@
+@import "../../custom-theme";
+
+:host ::ng-deep .animated-element {
+    position: absolute;
+    margin: 0;
+    font-size: 36px;
+    font-weight: 600;
+    color: $base-white-color;
+    -webkit-animation: moveUp 1s forwards;
+    animation: moveUp 1s forwards;
+    animation-timing-function: initial;
+}
+
+.animate-coin {
+  -webkit-animation: pulse 500s infinite;
+  animation: pulse 500ms infinite;
+}
+
+.start-btn {
+  background: #408bd8;
+  font-weight: 400;
+  border-radius: $base-border-radius;
+}
+
+.claim-btn {
+  color: $base-white-color;
+  background: $primary-color;
+  font-weight: 300;
+  border-radius: $base-border-radius;
+
+  &:active {
+    background: $primary-color;
+    transform: scale(1.1);
+    color: $base-white-color;
+    transition: 0.2s;
+  }
+
+  &:disabled {
+    background: #272827;
+  }
+}
+
+.processor-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  width: 100%;
+
+  &.boost-level-1 { /* 1 element */
+    & .processor {
+      left: 25%;
+      top: -17%;
+      transform: scale(0.8);
+    }
+  }
+  &.boost-level-2 {
+    & .processor {
+      &:nth-child(1) {
+        left: 37%;
+        top: -13%;
+        transform: scale(0.7);
+      }
+      &:nth-child(2) {
+        left: 5%;
+        top: 5%;
+        transform: scale(0.5);
+      }
+    }
+  }
+  &.boost-level-3 {
+    & .processor {
+      &:nth-child(1) {
+        left: 44%;
+        top: -29%;
+        transform: scale(0.7);
+        z-index: 1;
+      }
+      &:nth-child(2) {
+        left: 36%;
+        top: 19%;
+        transform: scale(0.5);
+        z-index: 4;
+      }
+      &:nth-child(3) {
+        left: 0;
+        top: -19%;
+        transform: scale(0.6);
+        z-index: 3;
+      }
+    }
+  }
+
+  &.boost-level-4 {
+    & .processor {
+      &:nth-child(1) {
+        left: 3%;
+        top: -18%;
+        transform: scale(0.4);
+        z-index: 2;
+      }
+      &:nth-child(2) {
+        left: 43%;
+        top: -24%;
+        transform: scale(0.4);
+        z-index: 2;
+      }
+      &:nth-child(3) {
+        left: 9%;
+        top: 27%;
+        transform: scale(0.4);
+      }
+      &:nth-child(4) {
+        left: 49%;
+        top: 19%;
+        transform: scale(0.4);
+      }
+    }
+  }
+}
+.processor {
+  position: absolute;
+}
+
+.board-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  //touch-action: none;
+
+  & .stats-filed {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    padding-bottom: 10px;
+    height: 58px;
+
+    &img {
+      border-radius: $base-border-radius-rounded;
+      width: 40px;
+    }
+  }
+
+  & .income-per-hour-row {
+
+
+    & p{
+      margin: 0;
+      color: $base-white-color;
+      font-weight: 300;
+      font-size: 16px
+    }
+  }
+
+  & .bucket-line-field {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+  }
+
+  & .claim-btn-field {
+    width: 100%;
+    text-align: center
+  }
+
+}
+
+
+@media only screen and (max-height: 700px) {
+    #mainCoin {
+      width: 250px;
+      height: 250px;
+    }
+}
+
+.collected-coin-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    color: $base-white-color;
+    margin-left: 10px
+  }
+}

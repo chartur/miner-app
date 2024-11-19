@@ -1,0 +1,24 @@
+<mat-dialog-content class="tg-dialog-container">
+  <div class="header-row d-flex justify-content-between align-items-center">
+    <h1 class="flex-grow-1 mb-0">
+      {{ 'subscribe_telegram_channel' | translate }}
+    </h1>
+    <button mat-button mat-dialog-close>X</button>
+  </div>
+  <img width="74" height="74" src="/assets/tg-color.png" alt="taskImg">
+  <div class="text-center text-white small">
+    {{ 'subscribe_community_and_claim_profit' | translate }}
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <div>
+        <img width="30" class="me-2" src="/assets/icon-ton-coin-blue1.png" alt="coin">
+        <span>{{ 'ton_miner' | translate }}</span>
+      </div>
+      <div class="p-0 m-0">
+        <span class="small text-muted">{{ 'one_mln_subscribers' | translate }}</span>
+      </div>
+    </div>
+  </div>
+  <button class="btn confirm-btn" (click)="onClick()">{{ 'join' | translate }}</button>
+</mat-dialog-content>

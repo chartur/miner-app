@@ -1,0 +1,20 @@
+<mat-dialog-content class="purchases-dialog">
+  <div class="w-100 text-end mb-2">
+    <button mat-button mat-dialog-close>X</button>
+  </div>
+  <p class="text-white m-0 mb-2 purchases-dialog__info">
+    {{ 'purchases_boosts_info' | translate }}
+  </p>
+  <div *ngIf="(purchasesBoosts | async)?.length; else noPurchasesBoosts">
+    <div class="d-flex flex-column purchases-dialog__container">
+      <div *ngFor="let boost of purchasesBoosts | async" class="p-2 purchases-dialog__inside" [style.border]="checkActiveBoost(boost)">
+        <span style="border-right: 1px dotted white" class="text-uppercase w-25 text-white">{{ boost.boostLevel }}</span>
+        <span class="text-white" style="font-size: 12px">{{ 'start' | translate }} - {{ boost.boostActivationDate | date: 'dd/MM' }}</span>
+        <span class="text-white" style="font-size: 12px">{{ 'end' | translate }} - {{ boost.boostExpirationDate | date: 'dd/MM' }}</span>
+      </div>
+    </div>
+  </div>
+  <ng-template #noPurchasesBoosts>
+    <p class="text-white">{{ 'empty_purchases_info' | translate }}</p>
+  </ng-template>
+</mat-dialog-content>

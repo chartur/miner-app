@@ -1,0 +1,12 @@
+<mat-dialog-content class="confirmation-modal">
+  <div style="text-align: right" class="w-100">
+    <button mat-dialog-close mat-button class="btn">X</button>
+  </div>
+  <div class="text-center">
+    <h6 class="text-white">{{ data.body }}</h6>
+  </div>
+  <div class="d-flex justify-content-between w-100">
+    <button [style.background-color]="data.cancelBtnColor" class="btn" mat-dialog-close>{{ 'cancel' | translate }}</button>
+    <button [style.background-color]="data.confirmBtnColor" class="btn" (click)="onClick()">{{ 'confirm' | translate }}</button>
+  </div>
+</mat-dialog-content>

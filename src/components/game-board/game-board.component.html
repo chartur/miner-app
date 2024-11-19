@@ -1,0 +1,45 @@
+<ng-container *ngIf="loading; else Loaded">
+  Loading...
+</ng-container>
+
+<ng-template #Loaded>
+<div #board_container class="board-container">
+  <div class="stats-filed">
+    <img width="48" style="border-radius: 50%" [src]="avatarUrl" alt="profPic">
+    <div class="collected-coin-row">
+      <img width="25" src="./assets/icon-ton-coin-blue1.png" alt="miner">
+      <span>{{ collectedTon$ | async }}</span>
+    </div>
+    <a style="color: white; font-weight: bold; margin: 0" routerLink="stats">
+      <img width="25" src="/assets/icon-combo-chart.png" alt="comboChart">
+    </a>
+  </div>
+
+  <div class="processor-container boost-level-{{ processorCount }}">
+    <div *ngFor="let processor of processorCountArray" class="processor">
+      <app-processor></app-processor>
+    </div>
+  </div>
+
+    <div class="income-per-hour-row">
+      <p *ngIf="isFirstTimeMining$ | async; else started">
+        {{ 'ready_to_mine' | translate }}
+      </p>
+      <ng-template #started>
+        <p>{{ calculator$ | async }} / {{ currentClaimMaxAmount$ | async }}</p>
+      </ng-template>
+    </div>
+
+  <div class="claim-btn-field">
+    <button *ngIf="isFirstTimeMining$ | async; else miningStarted" (click)="claim()" class="btn start-btn text-white mt-3">
+     {{ 'start_mining' | translate }}
+    </button>
+
+    <ng-template #miningStarted>
+      <button (click)="claim()" [disabled]="!isClaimAvailable" class="claim-btn btn mt-3">
+        {{ 'claim' | translate }}
+      </button>
+    </ng-template>
+  </div>
+</div>
+</ng-template>

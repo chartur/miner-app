@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand">
+  <div class="navbar-nav w-100 justify-content-around">
+    <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact : true }">
+      <img src="/assets/non-color-icons/cpu.png">
+      <div class="nav-title">{{ 'farm' | translate }}</div>
+    </a>
+    <a class="nav-link" routerLink="/boost" routerLinkActive="active">
+      <img src="/assets/non-color-icons/boost.png">
+      <div class="nav-title">{{ 'boosts' | translate }}</div>
+    </a>
+    <a class="nav-link" routerLink="/ref" routerLinkActive="active">
+      <img src="/assets/non-color-icons/users.png">
+      <div class="nav-title">{{ 'frens' | translate }}</div>
+    </a>
+    <a class="nav-link" routerLink="/tasks" routerLinkActive="active">
+      <img src="/assets/non-color-icons/todo.png">
+      <div class="nav-title">{{ 'tasks' | translate }}</div>
+    </a>
+    <a class="nav-link" routerLink="/cash-out" routerLinkActive="active">
+      <img src="/assets/non-color-icons/wallet.png">
+      <div class="nav-title">{{ 'cash' | translate }}</div>
+    </a>
+  </div>
+</nav>
+
+

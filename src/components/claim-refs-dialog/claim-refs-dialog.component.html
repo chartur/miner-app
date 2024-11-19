@@ -1,0 +1,32 @@
+<mat-dialog-content class="claim-ref-dialog-container">
+  <div class="header-row d-flex justify-content-between align-items-center">
+    <h1 class="flex-grow-1 mb-0">
+      {{ 'profit_from_ref' | translate }}
+    </h1>
+    <button mat-button mat-dialog-close>X</button>
+  </div>
+  <img width="74" height="74" src="/assets/congratulations.png" alt="congratulations">
+  <div class="text-center text-white small">
+    {{ 'congratulations_not_ref_dialog' | translate }}
+  </div>
+  <div class="card mb-2">
+    <div class="card-body">
+      <div class="mb-2">
+        <img width="30" class="me-2" src="/assets/icon-ton-coin-blue1.png" alt="coin">
+        <span>+{{ total$ | async }}</span>
+      </div>
+      <div class="text-muted small">
+        {{ 'profit_received_from' | translate }}
+      </div>
+      <div class="p-0 m-0 d-flex align-items-center gap-1">
+        <div *ngFor="let user of data.users" class="small-avatar">
+          <img [src]="user.photoUrl || avatarUrl">
+        </div>
+      </div>
+      <div class="text-muted small" *ngIf="data.moreUsersCount">
+        {{ 'and_other' | translate }} {{ data.moreUsersCount | countSuff: '0.[00]' }} {{ 'friends' | translate }}
+      </div>
+    </div>
+  </div>
+  <button class="btn confirm-btn" (click)="onClick()">{{ 'collect' | translate }}</button>
+</mat-dialog-content>

@@ -1,0 +1,79 @@
+<div class="cash-out-component">
+
+  <div class="first-content">
+    <div class="cash-out-component__user-info">
+      <span>{{ 'hello' | translate }} {{ user?.firstName }}</span>
+      <img class="prof-picture" [src]="avatarUrl" alt="profile-pic">
+    </div>
+
+    <div class="cash-out-component__cash-out-content">
+      <span class="cash-out-title">{{ 'Connect_wallet_stack_crypto' | translate }}</span>
+      <button
+        class="btn d-flex justify-content-center align-items-center p-2"
+        [class.btn-danger]="isTgWalletConnected"
+        (click)="toggleTelegramWalletConnection()">
+          <span class="connect-wallet-title">{{ (isTgWalletConnected ? 'disconnect_wallet' : 'connect_wallet') | translate }}</span>
+          <img class="wallet-icon" src="/assets/icon-wallet.png">
+      </button>
+    </div>
+
+    <div>
+      <h5 class="text-center text-white">{{ 'rate_info' | translate }}</h5>
+      <div class="rate-list">
+        <div class="card p-2 mb-1">
+          <div *ngIf="usd$ | async as usd" class="card-body">
+            <div class="currency-icon d-flex align-items-center">
+              <img width="28" src="/assets/icon-usdt.png" alt="valueUsdPic">
+              <div class="ms-2">
+                <p class="value-title">USD</p>
+                <p class="rate-value">${{ usd.currentValue }}</p>
+              </div>
+            </div>
+            <div class="flex-grow-1">
+              <p
+                class="small text-center m-0"
+                [class.text-success]="usd.direction"
+                [class.text-danger]="!usd.direction"
+              >
+                {{ usd.statistic }}
+              </p>
+            </div>
+            <div>
+              <p class="rate-value user-changed-value">${{ usd.userSavings }}</p>
+              <p class="rate-value"> {{ savings$ | async }}TON</p>
+            </div>
+          </div>
+          <div *ngIf="rub$ | async as rub" class="card-body">
+            <div class="currency-icon d-flex align-items-center">
+              <img width="28" src="/assets/icon-rub.png" alt="valueRubPic">
+              <div class="ms-2">
+                <p class="value-title">RUB</p>
+                <p class="rate-value">₽{{ rub.currentValue }}</p>
+              </div>
+            </div>
+            <div class="flex-grow-1">
+              <p
+                class="small text-center m-0"
+                [class.text-success]="rub.direction"
+                [class.text-danger]="!rub.direction"
+              >
+                {{ rub.statistic }}
+              </p>
+            </div>
+            <div>
+              <p class="rate-value user-changed-value">₽{{ rub.userSavings }}</p>
+              <p class="rate-value">{{ savings$ | async }}TON</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div cla="second-content">
+      <button (click)="openCashOutModal()" class="btn button-withdraw">
+        <span class="text-white">{{ 'withdraw' | translate }}</span>
+      </button>
+  </div>
+</div>
+

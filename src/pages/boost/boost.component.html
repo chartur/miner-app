@@ -1,0 +1,28 @@
+<div class="boost-container">
+  <div>
+    <img class="boost-container__main-logo" src="/assets/ton-miner.jpg" alt="mingLogo">
+  </div>
+  <h5 class="tasks-list__title m-0" style="">{{ 'buy_and_increase_profit' | translate }}</h5>
+  <div class="tasks-list">
+    <button type="button" *ngFor="let boost of boostMiniDetails$ | async" class="btn" (click)="buyBoost(boost)">
+      <div class="d-flex justify-content-between align-items-center">
+        <img width="44" class="pe-2" src="{{ boost.imgSrc }}">
+        <span style="color: white; border-left: 1px solid black; padding-left: 10px; font-size: 13px">{{ boost.refCashback }} %</span>
+        <span class="boost-descr flex-grow-1 text-uppercase">{{ boost.name }}</span>
+        <span class="boost-descr me-1">{{ boost.price }}</span>
+        <img src="/assets/icon-ton-coin-blue1.png" width="25" alt="ton">
+      </div>
+    </button>
+  </div>
+  <div class="w-100 text-center">
+    <span (click)="openPurchasesDialog()" style="text-decoration: underline; color: white">
+      {{ 'purchases' | translate }}
+    </span>
+  </div>
+  <div class="w-100">
+    <button (click)="openAutoClaimModal()" class="btn active-claim-btn w-100">
+      AUTO Claimer
+      <img width="36" class="pe-2" src="/assets/robot.png">
+    </button>
+  </div>
+</div>
