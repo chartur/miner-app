@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build:dev": "ng build --extractLicenses=false",
-    "build:staging": "ng build --configuration=staging && cp serve.js dist/browser",
+    "build:staging": "ng build --configuration=staging && cp server.js dist/browser",
     "build:prod": "ng build --configuration=production",
     "test": "ng test"
   },

@@ -35,7 +35,7 @@ jobs:
       - name: Package the build into an artifact
         run: |
           mkdir -p artifacts
-          cp server.js package.json package-lock.json dist/browser
+          cp server.js dist/browser
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
