@@ -30,16 +30,10 @@ export class TelegramService {
     this.app.setHeaderColor('#040416');
     this.app.ready();
 
-    // this.app.onEvent('qrTextReceived', (params) => {
-    //   console.log(params);
-    //   this.app.closeScanQrPopup();
-    // });
-
     this.prepareStorageData();
   }
 
   public get initDataString(): string {
-    console.log(this.app.initData, " Init Dara")
     return this.app.initData;
   }
 
@@ -56,7 +50,7 @@ export class TelegramService {
   }
 
   public readQR(): void {
-    this.app.showScanQrPopup({text: 'Testing'}, (data) => {
+    this.app.showScanQrPopup({}, (data) => {
       let qrData: string = '';
       try {
         qrData = new URL(data).pathname.slice(1);
