@@ -39,13 +39,13 @@ export class CashOutComponent implements OnInit, OnDestroy {
   public usd$: Observable<CurrencyStore> = this.cashoutStore.usd$.pipe(
     map(value => ({
       ...value,
-      currentValue: numeral(value.currentValue).format('0.[000000000]')
+      currentValue: numeral(value.currentValue).format('0.[0000]')
     }))
   );
   public rub$: Observable<CurrencyStore> = this.cashoutStore.rub$.pipe(
     map(value => ({
       ...value,
-      currentValue: numeral(value.currentValue).format('0.[000000000]')
+      currentValue: numeral(value.currentValue).format('0.[0000]')
     }))
   );
   public savings$: Observable<number> = this.cashoutStore.savings$;

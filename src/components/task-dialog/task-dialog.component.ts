@@ -1,11 +1,9 @@
 import {Component, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogClose, MatDialogContent, MatDialogRef} from "@angular/material/dialog";
 import {MatButton} from "@angular/material/button";
-import {TaskInterface} from "../../interface/task.interface";
 import {TelegramService} from "../../services/telegram.service";
-import {environment} from "../../environments/environment";
 import {TranslateModule} from "@ngx-translate/core";
-import {Router} from "@angular/router";
+import {Task} from "../../interface/models/task";
 
 @Component({
   selector: 'app-task-dialog',
@@ -21,14 +19,16 @@ import {Router} from "@angular/router";
 })
 export class TaskDialogComponent {
 
-  public data: TaskInterface = inject<TaskInterface>(MAT_DIALOG_DATA);
+  public data: Task = inject<Task>(MAT_DIALOG_DATA);
 
   constructor(
     public dialogRef: MatDialogRef<TaskDialogComponent>,
+    private telegramService: TelegramService
   ) {}
 
-  public onClick () {
-    window.location.href = this.data.link;
-    this.dialogRef.close();
+  public onClick(): void {
+    console.log(this.data.profit, " Our crypto")
+    //this.telegramService.openTelegramLink(data.link)
+    //this.dialogRef.close();
   }
 }

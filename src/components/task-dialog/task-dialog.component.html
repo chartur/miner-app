@@ -5,9 +5,9 @@
       </h1>
       <button mat-button mat-dialog-close>X</button>
     </div>
-    <img width="74" height="74" src="{{ data.imgSrc }}" alt="taskImg">
+    <img width="74" height="74" src="{{ data.icon }}" alt="taskImg">
     <div class="text-center text-white small">
-      {{ data.description }} and get + {{ data.profitByTibCoin }}
+      {{ data.description }} and get + {{ data.profit }}
       <img width="25" src="./assets/tasks/icon-coin.png" alt="">
     </div>
     <a class="btn confirm-btn" target="_blank" (click)="onClick()">{{ 'join' | translate }}</a>

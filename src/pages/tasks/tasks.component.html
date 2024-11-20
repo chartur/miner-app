@@ -4,7 +4,7 @@
       <img width="20" src="/assets/icon-info.png" alt="">
     </div>
     <div class="text-white coin-field">
-      <span>0</span>
+      <span>{{ (wallet$ | async)?.tibCoins }}</span>
       <img width="25" src="./assets/tasks/icon-coin.png" alt="Coin">
       <span>Tib coin</span>
     </div>
@@ -17,19 +17,25 @@
   </div>
   <div class="tasks-list">
     <h5 class="text-white" style="margin-block: 8px">{{ 'communities' | translate }}</h5>
-    <button *ngFor="let task of tasks" (click)="completeTheTask(task)" class="btn task-btn d-flex justify-content-between">
-      <div>
-        <img *ngIf="task.isComplete" width="20" src="./assets/tasks/icon-complete.png" alt="Complete">
-        <img width="24" src="{{ task.imgSrc }}" alt="icon">
-        <span>{{ task.title }}</span>
-      </div>
-      <div>
-        <span style="font-size: 13px">+{{ task.profitByTibCoin }}</span>
-        <span>
+    <div *ngIf="tasksLoading$ | async; else loaded">
+      Loading...
+    </div>
+    <ng-template #loaded>
+      <button *ngFor="let task of tasks$ | async" (click)="completeTheTask(task)" class="btn task-btn d-flex justify-content-between">
+        <div>
+          <img *ngIf="task.isCompleted" width="20" src="./assets/tasks/icon-complete.png" alt="Complete">
+          <img width="24" src="{{ task.icon }}" alt="icon">
+          <span>{{ task.title }}</span>
+        </div>
+        <div>
+          <span style="font-size: 13px">+{{ task.profit }}</span>
+          <span>
           <img width="24" src="{{ coinImgSrc }}" alt="Coin">
         </span>
-      </div>
-    </button>
+        </div>
+      </button>
+    </ng-template>
+
   </div>
   <div></div>
 </div>

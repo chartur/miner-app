@@ -4,8 +4,8 @@ export const environment = {
   production: false,
   tUserId: '5344748542',
   communityChannelLink: "https://t.me/+rmvNDW3MDwI4NjJi",
-  apiUrl: "https://0a104f64c842.ngrok.app",
-  appUrl: 'https://69c3b7aad272.ngrok.app',
+  apiUrl: "https://dd0d75064e1d.ngrok.app",
+  appUrl: 'https://f90ef3ca56e1.ngrok.app',
   botUrl: "https://t.me/lav_ches_ara_bot",
 };
 
