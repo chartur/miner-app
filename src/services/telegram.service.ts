@@ -42,7 +42,7 @@ export class TelegramService {
   }
 
   public openTelegramLink(url: string): void {
-    this.app.openTelegramLink(url);
+    this.app.openLink(url);
   }
 
   public get platform(): string {
@@ -50,17 +50,21 @@ export class TelegramService {
   }
 
   public readQR(): void {
-    this.app.showScanQrPopup({}, (data) => {
-      let qrData: string = '';
-      try {
-        qrData = new URL(data).pathname.slice(1);
-      } catch (e) {
-        qrData = data;
-      } finally {
-        this.app.closeScanQrPopup()
-      }
-      this._qrStream.next(qrData);
-    });
+    try {
+      this.app.showScanQrPopup({}, (data) => {
+        let qrData: string = '';
+        try {
+          qrData = new URL(data).pathname.slice(1);
+        } catch (e) {
+          qrData = data;
+        } finally {
+          this.app.closeScanQrPopup()
+        }
+        this._qrStream.next(qrData);
+      });
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   private prepareStorageData() {

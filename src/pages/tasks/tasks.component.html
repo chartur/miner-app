@@ -4,7 +4,7 @@
       <img width="20" src="/assets/icon-info.png" alt="">
     </div>
     <div class="text-white coin-field">
-      <span>0</span>
+      <span>{{ (wallet$ | async)?.tibCoins }}</span>
       <img width="25" src="./assets/tasks/icon-coin.png" alt="Coin">
       <span>Tib coin</span>
     </div>

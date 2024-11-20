@@ -1,9 +1,13 @@
 import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
-import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
+import {AsyncPipe, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {TaskDialogComponent} from "../../components/task-dialog/task-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {TranslateModule} from "@ngx-translate/core";
 import {TaskInterface} from "../../interface/task.interface";
+import {environment} from "../../environments/environment";
+import {WalletStore} from "../../stores/wallet.store";
+import {filter, map, Observable, single, switchMap, take} from "rxjs";
+import {Wallet} from "../../interface/models/wallet";
 
 @Component({
   selector: 'app-tasks',
@@ -13,6 +17,7 @@ import {TaskInterface} from "../../interface/task.interface";
     NgIf,
     NgOptimizedImage,
     TranslateModule,
+    AsyncPipe,
   ],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.scss'
@@ -28,6 +33,8 @@ export class TasksComponent {
     }
   }
 
+  public wallet$: Observable<Wallet | undefined> = this.walletStore.wallet$;
+
   public tibCoinInfoTooltip: string = 'none';
   public coinImgSrc: string = "/assets/tasks/icon-coin.png";
   public tasks: any = [
@@ -37,7 +44,7 @@ export class TasksComponent {
       description: "Connect directly with our community on Telegram! Get instant notifications, chat with like-minded individuals, and be the first to know about exciting news and updates.",
       isComplete: false,
       profitByTibCoin: 1000, // Our crypto
-      link: "https://t.me/toon_mining",
+      link: environment.communityChannelLink,
       imgSrc: "./assets/tasks/icon-telegram.png"
     },
     {
@@ -71,6 +78,7 @@ export class TasksComponent {
 
   constructor(
     public dialog: MatDialog,
+    private walletStore: WalletStore
   ) {}
 
   public completeTheTask (data: TaskInterface): void {
@@ -88,7 +96,7 @@ export class TasksComponent {
     });
   }
 
-  public toggleTooltip() {
+  public toggleTooltip(): void {
     this.tibCoinInfoTooltip = this.tibCoinInfoTooltip === 'none' ? 'block': 'none'
   }
 }

@@ -3,9 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogClose, MatDialogContent, MatDialogRef} from "@
 import {MatButton} from "@angular/material/button";
 import {TaskInterface} from "../../interface/task.interface";
 import {TelegramService} from "../../services/telegram.service";
-import {environment} from "../../environments/environment";
 import {TranslateModule} from "@ngx-translate/core";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-task-dialog',
@@ -25,10 +23,13 @@ export class TaskDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<TaskDialogComponent>,
+    private telegramService: TelegramService
   ) {}
 
-  public onClick () {
-    window.location.href = this.data.link;
-    this.dialogRef.close();
+  public onClick(data: TaskInterface): void {
+    console.log(data.profitByTibCoin, " Our crypto")
+
+    //this.telegramService.openTelegramLink(data.link)
+    //this.dialogRef.close();
   }
 }
