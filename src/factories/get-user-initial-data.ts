@@ -3,6 +3,7 @@ import {TelegramService} from "../services/telegram.service";
 import {AuthStore} from "../stores/auth.store";
 import {filter, firstValueFrom, tap} from "rxjs";
 import {environment} from "../environments/environment";
+import {resolve} from "@angular/compiler-cli";
 
 export const getUserInitialData = (
   storageService: StorageService,
@@ -10,6 +11,12 @@ export const getUserInitialData = (
   authStore: AuthStore
 ) => {
   return async () => {
+
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        resolve('')
+      }, 3000);
+    });
 
     if (!telegramService.initDataString) {
       alert("Please open the telegram app")
