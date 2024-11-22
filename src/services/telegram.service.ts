@@ -41,8 +41,12 @@ export class TelegramService {
     return this.app.initDataUnsafe
   }
 
-  public openTelegramLink(url: string): void {
+  public openLink(url: string): void {
     this.app.openLink(url);
+  }
+
+  public openTelegramLink(url: string): void {
+    this.app.openTelegramLink(url);
   }
 
   public get platform(): string {

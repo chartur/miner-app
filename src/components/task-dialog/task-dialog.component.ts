@@ -4,6 +4,9 @@ import {MatButton} from "@angular/material/button";
 import {TelegramService} from "../../services/telegram.service";
 import {TranslateModule} from "@ngx-translate/core";
 import {Task} from "../../interface/models/task";
+import {TasksStore} from "../../stores/tasks.store";
+
+type State = 'Join' | 'Complete';
 
 @Component({
   selector: 'app-task-dialog',
@@ -20,15 +23,24 @@ import {Task} from "../../interface/models/task";
 export class TaskDialogComponent {
 
   public data: Task = inject<Task>(MAT_DIALOG_DATA);
+  public joinState: State = this.data.isCompleted ? 'Complete' : 'Join';
 
   constructor(
     public dialogRef: MatDialogRef<TaskDialogComponent>,
-    private telegramService: TelegramService
+    private telegramService: TelegramService,
+    private taskStore: TasksStore
   ) {}
 
   public onClick(): void {
-    console.log(this.data.profit, " Our crypto")
-    //this.telegramService.openTelegramLink(data.link)
-    //this.dialogRef.close();
+    if (this.data.isCompleted) {
+      return
+    }
+    this.telegramService.openLink(this.data.link)
+
+    setTimeout(() => {
+      this.joinState = 'Complete';
+    }, 10000);
+    //this.taskStore.setTaskIsComplete(this.data);
+    this.dialogRef.close();
   }
 }
