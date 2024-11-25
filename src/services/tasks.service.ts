@@ -15,4 +15,8 @@ export class TasksService {
   public getAll(): Observable<Task[]> {
     return this.httpClient.get<Task[]>(endpoints.tasks.getAll);
   }
+
+  public updateTask(task: Task): Observable<Task[]> {
+    return this.httpClient.put<Task[]>(endpoints.tasks.update, { data: task })
+  }
 }

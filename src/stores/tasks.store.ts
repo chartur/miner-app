@@ -58,6 +58,22 @@ export class TasksStore extends ComponentStore<TasksState>{
     )
   });
 
+  public readonly setTaskIsComplete = this.effect((body$: Observable<Task>) => {
+    return body$.pipe(
+      switchMap((body) => this.tasksService.updateTask(body).pipe(
+        tap({
+          next: (data) => {
+            //this.setDataSuccess(data)
+          },
+          error: (err) => {
+            console.error(err);
+          }
+        }),
+        catchError(() => EMPTY)
+      ))
+    )
+  })
+
   constructor(
     private tasksService: TasksService
   ) {
