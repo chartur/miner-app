@@ -16,23 +16,24 @@
     <h5 class="text-white text-center">{{ 'your_tasks' | translate }} <br> {{ 'complete_task_info' | translate }}</h5>
   </div>
   <div class="tasks-list">
-    <h5 class="text-white" style="margin-block: 8px">{{ 'communities' | translate }}</h5>
-    <div *ngIf="tasksLoading$ | async; else loaded">
+    <div class="text-white" *ngIf="tasksLoading$ | async; else loaded">
       Loading...
     </div>
     <ng-template #loaded>
-      <button *ngFor="let task of tasks$ | async" (click)="completeTheTask(task)" class="btn task-btn d-flex justify-content-between">
+      <button [disabled]="task.isCompleted" *ngFor="let task of tasks$ | async" (click)="completeTheTask(task)" class="btn task-btn d-flex justify-content-between">
         <div>
-          <img *ngIf="task.isCompleted" width="20" src="./assets/tasks/icon-complete.png" alt="Complete">
           <img width="24" src="{{ task.icon }}" alt="icon">
           <span>{{ task.title }}</span>
         </div>
-        <div>
+        <div *ngIf="!task.isCompleted; else taskCompleted">
           <span style="font-size: 13px">+{{ task.profit }}</span>
           <span>
-          <img width="24" src="{{ coinImgSrc }}" alt="Coin">
-        </span>
+            <img width="24" src="/assets/tasks/icon-coin.png" alt="Coin">
+          </span>
         </div>
+        <ng-template #taskCompleted>
+          <img *ngIf="task.isCompleted" width="20" src="/assets/tasks/icon-done.png" alt="Complete">
+        </ng-template>
       </button>
     </ng-template>
 

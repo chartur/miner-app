@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {endpoints} from "../environments/environment";
 import {Task} from "../interface/models/task";
+import {CompleteTaskResponseDto} from "../interface/dto/complete-task.response.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class TasksService {
     return this.httpClient.get<Task[]>(endpoints.tasks.getAll);
   }
 
-  public updateTask(task: Task): Observable<Task[]> {
-    return this.httpClient.put<Task[]>(endpoints.tasks.update, { data: task })
+  public complete(taskId: string): Observable<CompleteTaskResponseDto> {
+    return this.httpClient.put<CompleteTaskResponseDto>(endpoints.tasks.complete, { taskId })
   }
 }

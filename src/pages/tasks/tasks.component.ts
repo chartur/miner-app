@@ -38,7 +38,6 @@ export class TasksComponent implements OnInit {
   public tasks$: Observable<Task[]> = this.tasksStore.tasks$;
 
   public tibCoinInfoTooltip: string = 'none';
-  public coinImgSrc: string = "/assets/tasks/icon-coin.png";
 
   constructor(
     public dialog: MatDialog,

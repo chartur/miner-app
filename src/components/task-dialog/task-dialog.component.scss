@@ -34,10 +34,22 @@
     }
   }
 
-  .confirm-btn {
+  .join-btn {
     color: $base-white-color;
     width: 100%;
     background-color: $primary-color;
     border-radius: $base-border-radius;
+  }
+
+  .confirm-btn {
+    color: $base-white-color;
+    width: 100%;
+    background-color: #37952e;
+    border-radius: $base-border-radius;
+
+    span {
+      color: #ebd526;
+      text-shadow: #ebd526 1px 0 10px;
+    }
   }
 }
