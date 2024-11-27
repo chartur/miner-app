@@ -2,7 +2,7 @@ export interface Wallet {
   id: string;
   tons: number;
   nonotons: number;
-  tibCoins: number
+  tibCoins: string
   claimCount: number;
   lastClaimDateTime?: Date;
   lastRefsClaimDateTime?: Date;

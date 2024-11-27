@@ -20,7 +20,7 @@ export const getEndpoints = (apiUrl: string) => {
     },
     tasks: {
       getAll: `${apiUrl}/tasks`,
-      update: `${apiUrl}/tasks/update`,
+      complete: `${apiUrl}/tasks/complete`,
     },
     config: {
       get: `${apiUrl}/config`

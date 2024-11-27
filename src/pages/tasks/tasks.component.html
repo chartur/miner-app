@@ -20,7 +20,7 @@
       Loading...
     </div>
     <ng-template #loaded>
-      <button *ngFor="let task of tasks$ | async" (click)="completeTheTask(task)" class="btn task-btn d-flex justify-content-between">
+      <button [disabled]="task.isCompleted" *ngFor="let task of tasks$ | async" (click)="completeTheTask(task)" class="btn task-btn d-flex justify-content-between">
         <div>
           <img *ngIf="task.isCompleted" width="20" src="./assets/tasks/icon-complete.png" alt="Complete">
           <img width="24" src="{{ task.icon }}" alt="icon">
@@ -29,7 +29,7 @@
         <div>
           <span style="font-size: 13px">+{{ task.profit }}</span>
           <span>
-          <img width="24" src="{{ coinImgSrc }}" alt="Coin">
+          <img width="24" src="/assets/tasks/icon-coin.png" alt="Coin">
         </span>
         </div>
       </button>

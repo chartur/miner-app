@@ -57,27 +57,35 @@ export class WalletStore extends ComponentStore<WalletState> implements OnStoreI
 
   private _connector?: TonConnectUI;
 
-  public readonly setLoadingState = this.updater((state, loading: boolean) => ({
+  private readonly setLoadingState = this.updater((state, loading: boolean) => ({
     ...state,
     loading
   }));
-  public readonly setWalletFailure = this.updater((state, error: unknown) => ({
+  private readonly setWalletFailure = this.updater((state, error: unknown) => ({
     ...state,
     loading: false,
     error: error
   }));
-  public readonly setWalletSuccess = this.updater((state, payload?: Wallet) => ({
+  private readonly setWalletSuccess = this.updater((state, payload?: Wallet) => ({
     ...state,
     wallet: payload,
     error: undefined,
     loading: false,
-  }))
-
-  public readonly setTgWalletSuccess = this.updater((state, payload: TgWallet | null) => ({
+  }));
+  private readonly setTgWalletSuccess = this.updater((state, payload: TgWallet | null) => ({
     ...state,
     tgWallet: payload,
     isTgWalletConnected: payload !== null
-  }))
+  }));
+  public readonly setTibcoins = this.updater((state, payload: string) => ({
+    ...state,
+    wallet: state.wallet ?
+      {
+        ...state.wallet,
+        tibCoins: payload
+      }
+      : undefined
+  }));
 
   public readonly setWalletDetails = this.effect((body$: Observable<Wallet | undefined>) => {
     return body$.pipe(
@@ -86,6 +94,7 @@ export class WalletStore extends ComponentStore<WalletState> implements OnStoreI
       })
     )
   });
+
 
   public readonly claim = this.effect((body$: Observable<void>) => {
     return body$.pipe(
