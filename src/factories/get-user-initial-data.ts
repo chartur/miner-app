@@ -12,11 +12,11 @@ export const getUserInitialData = (
 ) => {
   return async () => {
 
-    await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve('')
-      }, 3000);
-    });
+    // await new Promise((resolve) => {
+    //   setTimeout(() => {
+    //     resolve('')
+    //   }, 3000);
+    // });
 
     if (!telegramService.initDataString) {
       alert("Please open the telegram app")

@@ -19,7 +19,7 @@
         {{ 'profit_received_from' | translate }}
       </div>
       <div class="p-0 m-0 d-flex align-items-center gap-1">
-        <div *ngFor="let user of data.users" class="small-avatar">
+        <div *ngFor="let user of users$ | async" class="small-avatar">
           <img [src]="user.photoUrl || avatarUrl">
         </div>
       </div>

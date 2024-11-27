@@ -58,6 +58,14 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,
+              "assets": [
+                "src/assets",
+                {
+                  "input": "src/environments/assets/development",
+                  "output": "/assets",
+                  "glob": "*.json"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -69,6 +77,14 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,
+              "assets": [
+                "src/assets",
+                {
+                  "input": "src/environments/assets/staging",
+                  "output": "/assets",
+                  "glob": "*.json"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",

@@ -4,9 +4,9 @@ export const environment = {
   production: false,
   tUserId: '5344748542',
   communityChannelLink: "https://t.me/+rmvNDW3MDwI4NjJi",
-  apiUrl: "https://a9f0e62313fc.ngrok.app",
-  appUrl: 'https://f54e4ed49fca.ngrok.app',
-  botUrl: "https://t.me/lav_ches_ara_bot",
+  apiUrl: "https://0b8dfc7aa341.ngrok.app",
+  appUrl: 'https://625f6278511d.ngrok.app',
+  botUrl: "https://t.me/toon_miner_local_bot",
 };
 
 export const endpoints = getEndpoints(environment.apiUrl);
