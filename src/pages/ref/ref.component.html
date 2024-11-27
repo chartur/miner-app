@@ -28,7 +28,7 @@
       <div class="card-body">
         <h6 class="text-white">{{ 'referrals' | translate }}</h6>
         <div class="text-white" *ngIf="refsLoading$ | async; else loaded">
-          ...Loading
+          Loading...
         </div>
         <ng-template #loaded>
           <ng-container *ngIf="refs.length; else emptyReferrals">

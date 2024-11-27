@@ -10,5 +10,8 @@
       {{ data.description }} and get + {{ data.profit }}
       <img width="25" src="./assets/tasks/icon-coin.png" alt="">
     </div>
-    <a class="btn confirm-btn" target="_blank" (click)="onClick()">{{ joinState | translate }}</a>
+    <a *ngIf="!isCLickedJoined" class="btn join-btn" target="_blank" (click)="onClick()">{{ 'join' | translate }}</a>
+    <a *ngIf="isCLickedJoined" class="btn confirm-btn" target="_blank" (click)="confirmTask()">
+      🎉 {{ 'claim' | translate }} <span>+ {{ data.profit }} </span>
+    </a>
 </mat-dialog-content>

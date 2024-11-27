@@ -5,8 +5,7 @@ import {TelegramService} from "../../services/telegram.service";
 import {TranslateModule} from "@ngx-translate/core";
 import {Task} from "../../interface/models/task";
 import {TasksStore} from "../../stores/tasks.store";
-
-type State = 'Join' | 'Complete';
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-task-dialog',
@@ -15,15 +14,16 @@ type State = 'Join' | 'Complete';
     MatButton,
     MatDialogClose,
     MatDialogContent,
-    TranslateModule
+    TranslateModule,
+    NgIf
   ],
   templateUrl: './task-dialog.component.html',
   styleUrl: './task-dialog.component.scss'
 })
 export class TaskDialogComponent {
 
+  public isCLickedJoined: boolean = false
   public data: Task = inject<Task>(MAT_DIALOG_DATA);
-  public joinState: State = this.data.isCompleted ? 'Complete' : 'Join';
 
   constructor(
     public dialogRef: MatDialogRef<TaskDialogComponent>,
@@ -35,12 +35,19 @@ export class TaskDialogComponent {
     if (this.data.isCompleted) {
       return
     }
-    this.telegramService.openLink(this.data.link)
+
+    try {
+      this.telegramService.openTelegramLink(this.data.link)
+    } catch (e) {
+      this.telegramService.openLink(this.data.link)
+    }
 
     setTimeout(() => {
-      this.joinState = 'Complete';
-    }, 10000);
-    //this.taskStore.setTaskIsComplete(this.data);
-    this.dialogRef.close();
+      this.isCLickedJoined = true;
+    }, 2000);
+  }
+
+  public confirmTask(): void {
+
   }
 }

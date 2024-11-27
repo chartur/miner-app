@@ -16,8 +16,7 @@
     <h5 class="text-white text-center">{{ 'your_tasks' | translate }} <br> {{ 'complete_task_info' | translate }}</h5>
   </div>
   <div class="tasks-list">
-    <h5 class="text-white" style="margin-block: 8px">{{ 'communities' | translate }}</h5>
-    <div *ngIf="tasksLoading$ | async; else loaded">
+    <div class="text-white" *ngIf="tasksLoading$ | async; else loaded">
       Loading...
     </div>
     <ng-template #loaded>

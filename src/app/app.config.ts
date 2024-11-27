@@ -57,7 +57,7 @@ export const appConfig: ApplicationConfig = {
     },
     {
       provide: APP_INITIALIZER,
-      useFactory: getUserInitialData,
+      useFactory: getUserInitialDataDebug,
       deps: [StorageService, TelegramService, AuthStore],
       multi: true
     },
