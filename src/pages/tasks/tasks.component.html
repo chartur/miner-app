@@ -23,10 +23,10 @@
       <button [disabled]="task.isCompleted" *ngFor="let task of tasks$ | async" (click)="completeTheTask(task)" class="btn task-btn d-flex justify-content-between">
         <div>
           <img width="24" src="{{ task.icon }}" alt="icon">
-          <span>{{ task.title }}</span>
+          <span class="ms-1">{{ task.title }}</span>
         </div>
         <div *ngIf="!task.isCompleted; else taskCompleted">
-          <span style="font-size: 13px">+{{ task.profit }}</span>
+          <span style="font-size: 13px" class="me-1">+{{ task.profit }}</span>
           <span>
             <img width="24" src="/assets/tasks/icon-coin.png" alt="Coin">
           </span>
