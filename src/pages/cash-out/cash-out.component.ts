@@ -16,6 +16,7 @@ import {
   ConfirmationModalComponent
 } from "../../components/confirmation-modal/confirmation-modal.component";
 import {WalletStore} from "../../stores/wallet.store";
+import {TelegramService} from "../../services/telegram.service";
 
 @Component({
   selector: 'app-cash-out',
@@ -57,7 +58,8 @@ export class CashOutComponent implements OnInit, OnDestroy {
     private walletStore: WalletStore,
     private cdRef: ChangeDetectorRef,
     private matDialog: MatDialog,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private telegramService: TelegramService,
   ) {}
 
   ngOnInit() {
@@ -86,6 +88,10 @@ export class CashOutComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  public openCommunity(): void {
+    this.telegramService.openTelegramCommunity();
   }
 
   public toggleTelegramWalletConnection(): void {

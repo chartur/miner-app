@@ -4,6 +4,7 @@ import {AuthStore} from "../stores/auth.store";
 import {filter, firstValueFrom, tap} from "rxjs";
 import {environment} from "../environments/environment";
 import {resolve} from "@angular/compiler-cli";
+import {version} from "../app-version";
 
 export const getUserInitialData = (
   storageService: StorageService,
@@ -19,7 +20,7 @@ export const getUserInitialData = (
     // });
 
     if (!telegramService.initDataString) {
-      alert("Please open the telegram app")
+      alert(`Please open the telegram app v-${version}`)
       window.location.href = environment.botUrl;
       return;
     }
