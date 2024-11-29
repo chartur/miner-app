@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {FormsModule} from "@angular/forms";
 import {CommonModule, NgFor, NgForOf, NgOptimizedImage} from "@angular/common";
@@ -8,10 +8,15 @@ import {TranslateModule} from "@ngx-translate/core";
 import {boosts} from "../../constants/boosts";
 import {AutoClaimDialogComponent} from "../../components/auto-claim-dialog/auto-claim-dialog.component";
 import {ConfigStore} from "../../stores/config.store";
-import {filter, map, Observable} from "rxjs";
+import {filter, map, Observable, Subscription, tap} from "rxjs";
 import {BoostExpendedDetails} from "../../interface/other/boost-expended-details";
 import {PurchasesDialogComponent} from "../../components/purchases-dialog/purchases-dialog.component";
 import {ReminderDialogComponent} from "../../components/reminder-dialog/reminder-dialog.component";
+import {BoostStore} from "../../stores/boost.store";
+import {TelegramService} from "../../services/telegram.service";
+import moment from "moment";
+import {UiService} from "../../services/ui.service";
+import {UserSettingsStore} from "../../stores/user-settings.store";
 
 @Component({
   selector: 'app-boost',
@@ -29,7 +34,7 @@ import {ReminderDialogComponent} from "../../components/reminder-dialog/reminder
   templateUrl: './boost.component.html',
   styleUrl: './boost.component.scss'
 })
-export class BoostComponent {
+export class BoostComponent implements OnInit, OnDestroy {
 
   public boostMiniDetails$: Observable<Array<BoostExpendedDetails>> = this.configStore.boostDetails$
     .pipe(
@@ -42,12 +47,34 @@ export class BoostComponent {
         ...data[current],
         ...boosts[current]
       }))),
-    )
+    );
+  public isReminderActive$: Observable<boolean> = this.userSettingsStore.claimNotificationEnabled$;
+
+  private subscription = new Subscription();
 
   constructor(
     public dialog: MatDialog,
     private configStore: ConfigStore,
+    private boostStore: BoostStore,
+    private telegramService: TelegramService,
+    private userSettingsStore: UserSettingsStore,
+    private uiService: UiService,
   ) {}
+
+  ngOnInit() {
+    this.subscription.add(
+      this.boostStore.starInvoiceLink$.pipe(
+        filter(link => link !== undefined),
+      ).subscribe((link) => {
+        this.telegramService.openInvoice(link!, (state) => this.claimReminderPaymentCallback(state));
+        this.boostStore.setStarInvoiceLinkSuccess(undefined);
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
   public buyBoost (data: BoostExpendedDetails): void {
     this.dialog.open(BoostDialogComponent, {
@@ -105,5 +132,16 @@ export class BoostComponent {
       ariaModal: true,
       panelClass: "dialog-style"
     })
+  }
+
+  private claimReminderPaymentCallback(status: string): void {
+    console.log(status, status === 'paid', 'GEXEC')
+    if (status === 'paid') {
+      this.userSettingsStore.setClaimNotificationDataSuccess({
+        enabled: true,
+        expiration: moment().toDate(),
+      });
+      this.uiService.runFireworks();
+    }
   }
 }

@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {BoostLevels} from "../interface/enum/boost-levels";
 import {endpoints} from "../environments/environment";
 import {InvoiceDto} from "../interface/dto/invoice.dto";
+import {LinkResponseDto} from "../interface/dto/link.response.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +20,9 @@ export class BoostService {
     return this.httpClient.post<InvoiceDto>(endpoints.boost.invoice, {
       boostType
     });
+  }
+
+  public getClaimNotificationInvoiceLink(): Observable<LinkResponseDto> {
+    return this.httpClient.post<LinkResponseDto>(endpoints.boost.getClaimNotificationInvoiceLink, {});
   }
 }

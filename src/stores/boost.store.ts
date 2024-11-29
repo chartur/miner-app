@@ -14,7 +14,8 @@ interface BoostState {
   error: unknown,
   boost?: Boost,
   boostInvoice?: InvoiceDto,
-  purchasesBoosts?: Boost[]
+  purchasesBoosts?: Boost[],
+  starInvoiceLink?: string,
 }
 
 const initialState: BoostState = {
@@ -22,7 +23,8 @@ const initialState: BoostState = {
   error: undefined,
   boost: undefined,
   boostInvoice: undefined,
-  purchasesBoosts: []
+  purchasesBoosts: [],
+  starInvoiceLink: undefined,
 }
 
 @Injectable({
@@ -33,6 +35,7 @@ export class BoostStore extends ComponentStore<BoostState>{
   public readonly loading$: Observable<boolean> = this.select((state) => state.loading);
   public readonly invoice$: Observable<InvoiceDto | undefined> = this.select((state) => state.boostInvoice);
   public readonly getPurchasesBoosts$: Observable<Boost[]> = this.select(state => state?.purchasesBoosts || []);
+  public readonly starInvoiceLink$: Observable<string | undefined> = this.select(state => state.starInvoiceLink);
 
   private _successfullyActivated: Subject<void> = new Subject<void>();
   public successfullyActivated$: Observable<void> = this._successfullyActivated.asObservable();
@@ -77,6 +80,18 @@ export class BoostStore extends ComponentStore<BoostState>{
       loading: false,
     })
   })
+  public setStarInvoiceLinkSuccess = this.updater((state, payload: string | undefined) => ({
+    ...state,
+    error: undefined,
+    loading: false,
+    starInvoiceLink: payload
+  }));
+  public setStarInvoiceLinkFailure = this.updater((state, error: unknown) => ({
+    ...state,
+    error,
+    loading: false,
+    starInvoiceLink: undefined
+  }));
 
   public readonly getInvoice = this.effect((body$: Observable<BoostLevels>) => {
     return body$.pipe(
@@ -95,6 +110,23 @@ export class BoostStore extends ComponentStore<BoostState>{
           }),
           catchError(() => EMPTY)
         ))
+      ))
+    )
+  });
+
+  public readonly getClaimNotificationInvoiceLink = this.effect((body$: Observable<void>) => {
+    return body$.pipe(
+      tap(() => this.setLoadingState(true)),
+      switchMap(() => this.boostService.getClaimNotificationInvoiceLink().pipe(
+        tap({
+          next: (response) => {
+            this.setStarInvoiceLinkSuccess(response.link);
+          },
+          error: (err) => {
+            this.setStarInvoiceLinkFailure(err);
+          }
+        }),
+        catchError(() => EMPTY)
       ))
     )
   })

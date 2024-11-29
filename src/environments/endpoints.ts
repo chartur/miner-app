@@ -17,6 +17,7 @@ export const getEndpoints = (apiUrl: string) => {
     },
     boost: {
       invoice: `${apiUrl}/boosts/invoice`,
+      getClaimNotificationInvoiceLink: `${apiUrl}/boosts/claim-notification/invoice`
     },
     tasks: {
       getAll: `${apiUrl}/tasks`,

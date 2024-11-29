@@ -54,6 +54,10 @@ export class TelegramService {
     this.app.openTelegramLink(url);
   }
 
+  public openInvoice(link: string, callback?: (data: any) => void) {
+    this.app.openInvoice(link, callback);
+  }
+
   public get platform(): string {
     return window['Telegram'].WebApp.platform;
   }
