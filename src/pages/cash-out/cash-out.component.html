@@ -40,7 +40,7 @@
             </div>
             <div>
               <p class="rate-value user-changed-value">${{ usd.userSavings }}</p>
-              <p class="rate-value"> {{ savings$ | async }}TON</p>
+              <p class="rate-value"> {{ savings$ | async }} <span class="fw-bold"> TON</span></p>
             </div>
           </div>
           <div *ngIf="rub$ | async as rub" class="card-body">
@@ -62,12 +62,17 @@
             </div>
             <div>
               <p class="rate-value user-changed-value">₽{{ rub.userSavings }}</p>
-              <p class="rate-value">{{ savings$ | async }}TON</p>
+              <p class="rate-value">{{ savings$ | async }} <span class="fw-bold"> TON</span></p>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+
+  <div (click)="openCommunity()" class="w-100 d-flex justify-content-center" style="text-decoration: underline; color: white; cursor: pointer">
+    <span class="text-white">{{ 'join_for_more' | translate }}</span>
+    <img width="20" height="20" src="/assets/icon-share.png" alt="share">
   </div>
 
   <div cla="second-content">
