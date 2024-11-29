@@ -4,6 +4,7 @@ import {StorageService} from "./storage.service";
 import {User} from "../interface/models/user";
 import {Language} from "../interface/enum/language";
 import {Observable, Subject} from "rxjs";
+import {environment} from "../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,10 @@ export class TelegramService {
   constructor(
     private storageService: StorageService
   ) {}
+
+  public openTelegramCommunity(): void {
+    this.app.openTelegramLink(environment.communityChannelLink);
+  }
 
   public init(): void {
     this.app = (window as any).Telegram.WebApp;
