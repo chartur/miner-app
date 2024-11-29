@@ -4,8 +4,8 @@ export const environment = {
   production: false,
   tUserId: '5344748542',
   communityChannelLink: "https://t.me/+rmvNDW3MDwI4NjJi",
-  apiUrl: "https://12e69ace2f3d.ngrok.app",
-  appUrl: 'https://0de21d333d1a.ngrok.app',
+  apiUrl: "https://1fb91a6bc6ea.ngrok.app",
+  appUrl: 'https://e99f802cfcf2.ngrok.app',
   botUrl: "https://t.me/toon_miner_local_bot",
 };
 
