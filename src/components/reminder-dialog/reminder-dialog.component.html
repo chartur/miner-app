@@ -1,0 +1,17 @@
+<mat-dialog-content class="dialog-content">
+  <div class="header-row">
+    <h1>
+      {{ 'reminder' | translate }}
+    </h1>
+    <button mat-button mat-dialog-close>X</button>
+  </div>
+  <div class="dialog-body">
+    <div>
+    </div>
+    <img class="active-claim-img" width="74" src="/assets/icon-reminder.png" alt="boost-img">
+    <p class="act-auto-claim text-white m-0">
+      {{ 'reminder_info' | translate }}
+    </p>
+    <button (click)="buyReminder()" disabled class="btn buy-bonus">{{ 'buy_for' | translate }} 100 ⭐</button>
+  </div>
+</mat-dialog-content>

@@ -10,6 +10,6 @@
     </div>
     <img class="active-claim-img" width="74" src="/assets/robot.png" alt="boost-img">
     <p class="act-auto-claim text-white m-0">{{ 'auto_claim_dialog_info' | translate }}</p>
-    <button disabled class="btn buy-bonus">{{ 'activate' | translate }}</button>
+    <button disabled (click)="buyAutoClaimer()" class="btn buy-bonus">{{ 'buy_for' | translate }} 200 ⭐</button>
   </div>
 </mat-dialog-content>
