@@ -4,7 +4,7 @@
       <img width="20" src="/assets/icon-info.png" alt="">
     </div>
     <div class="text-white coin-field">
-      <span>0</span>
+      <span>{{ (wallet$ | async)?.tibCoins }}</span>
       <img width="25" src="./assets/tasks/icon-coin.png" alt="Coin">
       <span>Tib coin</span>
     </div>
@@ -16,20 +16,27 @@
     <h5 class="text-white text-center">{{ 'your_tasks' | translate }} <br> {{ 'complete_task_info' | translate }}</h5>
   </div>
   <div class="tasks-list">
-    <h5 class="text-white" style="margin-block: 8px">{{ 'communities' | translate }}</h5>
-    <button *ngFor="let task of tasks" (click)="completeTheTask(task)" class="btn task-btn d-flex justify-content-between">
-      <div>
-        <img *ngIf="task.isComplete" width="20" src="./assets/tasks/icon-complete.png" alt="Complete">
-        <img width="24" src="{{ task.imgSrc }}" alt="icon">
-        <span>{{ task.title }}</span>
-      </div>
-      <div>
-        <span style="font-size: 13px">+{{ task.profitByTibCoin }}</span>
-        <span>
-          <img width="24" src="{{ coinImgSrc }}" alt="Coin">
-        </span>
-      </div>
-    </button>
+    <div class="text-white" *ngIf="tasksLoading$ | async; else loaded">
+      Loading...
+    </div>
+    <ng-template #loaded>
+      <button [disabled]="task.isCompleted" *ngFor="let task of tasks$ | async" (click)="completeTheTask(task)" class="btn task-btn d-flex justify-content-between">
+        <div>
+          <img width="24" src="{{ task.icon }}" alt="icon">
+          <span class="ms-1">{{ task.title }}</span>
+        </div>
+        <div *ngIf="!task.isCompleted; else taskCompleted">
+          <span style="font-size: 13px" class="me-1">+{{ task.profit }}</span>
+          <span>
+            <img width="24" src="/assets/tasks/icon-coin.png" alt="Coin">
+          </span>
+        </div>
+        <ng-template #taskCompleted>
+          <img *ngIf="task.isCompleted" width="20" src="/assets/tasks/icon-done.png" alt="Complete">
+        </ng-template>
+      </button>
+    </ng-template>
+
   </div>
   <div></div>
 </div>

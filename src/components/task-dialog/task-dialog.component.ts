@@ -1,11 +1,13 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogClose, MatDialogContent, MatDialogRef} from "@angular/material/dialog";
 import {MatButton} from "@angular/material/button";
-import {TaskInterface} from "../../interface/task.interface";
 import {TelegramService} from "../../services/telegram.service";
-import {environment} from "../../environments/environment";
 import {TranslateModule} from "@ngx-translate/core";
-import {Router} from "@angular/router";
+import {Task} from "../../interface/models/task";
+import {TasksStore} from "../../stores/tasks.store";
+import {NgIf} from "@angular/common";
+import {Subscription} from "rxjs";
+import {UiService} from "../../services/ui.service";
 
 @Component({
   selector: 'app-task-dialog',
@@ -14,21 +16,55 @@ import {Router} from "@angular/router";
     MatButton,
     MatDialogClose,
     MatDialogContent,
-    TranslateModule
+    TranslateModule,
+    NgIf
   ],
   templateUrl: './task-dialog.component.html',
   styleUrl: './task-dialog.component.scss'
 })
-export class TaskDialogComponent {
+export class TaskDialogComponent implements OnInit, OnDestroy {
 
-  public data: TaskInterface = inject<TaskInterface>(MAT_DIALOG_DATA);
+  public isCLickedJoined: boolean = false
+  public data: Task = inject<Task>(MAT_DIALOG_DATA);
+  private subscriptions = new Subscription();
 
   constructor(
     public dialogRef: MatDialogRef<TaskDialogComponent>,
+    private telegramService: TelegramService,
+    private taskStore: TasksStore,
+    private uiService: UiService,
   ) {}
 
-  public onClick () {
-    window.location.href = this.data.link;
-    this.dialogRef.close();
+  ngOnInit() {
+    this.subscriptions.add(
+      this.taskStore.successfullyClaimed$.subscribe(() => {
+        this.uiService.runFireworks();
+        this.dialogRef.close();
+      })
+    )
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+  }
+
+  public onClick(): void {
+    if (this.data.isCompleted) {
+      return
+    }
+
+    try {
+      this.telegramService.openTelegramLink(this.data.link)
+    } catch (e) {
+      this.telegramService.openLink(this.data.link)
+    }
+
+    setTimeout(() => {
+      this.isCLickedJoined = true;
+    }, 2000);
+  }
+
+  public confirmTask(): void {
+    this.taskStore.complete(this.data.id);
   }
 }

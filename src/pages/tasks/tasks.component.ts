@@ -1,9 +1,13 @@
-import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
-import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
+import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
+import {AsyncPipe, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {TaskDialogComponent} from "../../components/task-dialog/task-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {TranslateModule} from "@ngx-translate/core";
-import {TaskInterface} from "../../interface/task.interface";
+import {WalletStore} from "../../stores/wallet.store";
+import {Observable} from "rxjs";
+import {Wallet} from "../../interface/models/wallet";
+import {TasksStore} from "../../stores/tasks.store";
+import {Task} from "../../interface/models/task";
 
 @Component({
   selector: 'app-tasks',
@@ -13,11 +17,12 @@ import {TaskInterface} from "../../interface/task.interface";
     NgIf,
     NgOptimizedImage,
     TranslateModule,
+    AsyncPipe,
   ],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.scss'
 })
-export class TasksComponent {
+export class TasksComponent implements OnInit {
 
   @ViewChild('coin_tooltip') coin_tooltip: ElementRef;
 
@@ -28,52 +33,23 @@ export class TasksComponent {
     }
   }
 
+  public wallet$: Observable<Wallet | undefined> = this.walletStore.wallet$;
+  public tasksLoading$: Observable<boolean> = this.tasksStore.loading$;
+  public tasks$: Observable<Task[]> = this.tasksStore.tasks$;
+
   public tibCoinInfoTooltip: string = 'none';
-  public coinImgSrc: string = "/assets/tasks/icon-coin.png";
-  public tasks: any = [
-    {
-      name: "Telegram",
-      title: "Join community",
-      description: "Connect directly with our community on Telegram! Get instant notifications, chat with like-minded individuals, and be the first to know about exciting news and updates.",
-      isComplete: false,
-      profitByTibCoin: 1000, // Our crypto
-      link: "https://t.me/toon_mining",
-      imgSrc: "./assets/tasks/icon-telegram.png"
-    },
-    {
-      name: "Youtube",
-      title: "Subscribe channel",
-      description: "Stay updated and inspired! Subscribe to our YouTube channel for the latest videos, tutorials, and exclusive content tailored just for you!",
-      isComplete: false,
-      profitByTibCoin: 750, // Our crypto
-      link: "https://www.youtube.com/watch?v=sNtyed7A5YA&list=RDsNtyed7A5YA&start_radio=1",
-      imgSrc: "./assets/tasks/icon-youtube.png"
-    },
-    {
-      name: "X",
-      title: "Follow us on X",
-      description: "Join our community on X for real-time updates, insights, and conversations! Follow us to stay connected and never miss out on the latest buzz.",
-      isComplete: false,
-      profitByTibCoin: 500, // Our crypto
-      link: "https://x.com/?lang=en&mx=2",
-      imgSrc: "./assets/tasks/icon-x.png"
-    },
-    {
-      name: "Instagram",
-      title: "Follow us on instagram",
-      description: "Follow us on instagram to stay connected and never miss out on the latest updates",
-      isComplete: true,
-      profitByTibCoin: 500, // Our crypto
-      link: "https://www.instagram.com/",
-      imgSrc: "./assets/tasks/icon-instagram.png"
-    },
-  ];
 
   constructor(
     public dialog: MatDialog,
+    private walletStore: WalletStore,
+    private tasksStore: TasksStore
   ) {}
 
-  public completeTheTask (data: TaskInterface): void {
+  ngOnInit() {
+    this.tasksStore.getAllTasks();
+  }
+
+  public completeTheTask (data: Task): void {
     const dialogRef = this.dialog.open(TaskDialogComponent, {
       hasBackdrop: true,
       width: "90%",
@@ -88,7 +64,7 @@ export class TasksComponent {
     });
   }
 
-  public toggleTooltip() {
+  public toggleTooltip(): void {
     this.tibCoinInfoTooltip = this.tibCoinInfoTooltip === 'none' ? 'block': 'none'
   }
 }

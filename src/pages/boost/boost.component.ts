@@ -11,6 +11,7 @@ import {ConfigStore} from "../../stores/config.store";
 import {filter, map, Observable} from "rxjs";
 import {BoostExpendedDetails} from "../../interface/other/boost-expended-details";
 import {PurchasesDialogComponent} from "../../components/purchases-dialog/purchases-dialog.component";
+import {ReminderDialogComponent} from "../../components/reminder-dialog/reminder-dialog.component";
 
 @Component({
   selector: 'app-boost',
@@ -61,6 +62,20 @@ export class BoostComponent {
       ariaModal: true,
       panelClass: "dialog-style",
       data: data
+    })
+  }
+
+  public openReminderDialog(): void {
+    this.dialog.open(ReminderDialogComponent, {
+      hasBackdrop: true,
+      width: "90%",
+      height: `${window.innerHeight / 1.8}px`,
+      position: { bottom: "20%" },
+      delayFocusTrap: true,
+      role: "alertdialog",
+      closeOnNavigation: true,
+      ariaModal: true,
+      panelClass: "dialog-style",
     })
   }
 

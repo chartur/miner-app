@@ -11,6 +11,7 @@
     flex-direction: column;
     justify-content: start;
     align-items: center;
+    padding-block: 20px;
     width: 100%;
     height: 300px;
     max-height: 350px;
@@ -20,6 +21,7 @@
   }
 
   .coin-tooltip {
+    z-index: 1;
     color: white;
     top: 100%;
     left: 0;

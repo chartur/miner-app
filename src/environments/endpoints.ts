@@ -18,6 +18,10 @@ export const getEndpoints = (apiUrl: string) => {
     boost: {
       invoice: `${apiUrl}/boosts/invoice`,
     },
+    tasks: {
+      getAll: `${apiUrl}/tasks`,
+      complete: `${apiUrl}/tasks/complete`,
+    },
     config: {
       get: `${apiUrl}/config`
     }

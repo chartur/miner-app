@@ -121,8 +121,8 @@ export class RefsStore extends ComponentStore<RefState> implements OnStoreInit {
               this.matSnackBar.open(e.error.message);
             }
           }),
-          catchError(() => EMPTY)
         )),
+        catchError(() => EMPTY)
       ))
     )
   })

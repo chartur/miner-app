@@ -4,7 +4,7 @@ import {MatDialogClose, MatDialogContent} from "@angular/material/dialog";
 import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
-  selector: 'app-auto-claim-dialog',
+  selector: 'app-reminder-dialog',
   standalone: true,
   imports: [
     MatButton,
@@ -12,12 +12,12 @@ import {TranslateModule} from "@ngx-translate/core";
     MatDialogContent,
     TranslateModule
   ],
-  templateUrl: './auto-claim-dialog.component.html',
-  styleUrl: './auto-claim-dialog.component.scss'
+  templateUrl: './reminder-dialog.component.html',
+  styleUrl: './reminder-dialog.component.scss'
 })
-export class AutoClaimDialogComponent {
+export class ReminderDialogComponent {
 
-  public buyAutoClaimer(): void {
+  public buyReminder(): void {
 
   }
 
