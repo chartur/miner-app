@@ -6,11 +6,14 @@
     <div class="text-white coin-field">
       <span>{{ (wallet$ | async)?.tibCoins }}</span>
       <img width="25" src="./assets/tasks/icon-coin.png" alt="Coin">
-      <span>Tib coin</span>
+      <span>Tib</span>
     </div>
     <div [style.display]="tibCoinInfoTooltip" #coin_tooltip class="coin-tooltip">
       {{ 'tib_coin_info_tooltip' | translate }}
     </div>
+  </div>
+  <div class="w-100 text-start">
+    <button (click)="navigateStore()" style="width: 33%; font-size: 14px;padding: 2px; border: 1px solid #61365e;" type="button" class="btn">Coin store 🛍️</button>
   </div>
   <div class="d-flex flex-column align-items-center">
     <h5 class="text-white text-center">{{ 'your_tasks' | translate }} <br> {{ 'complete_task_info' | translate }}</h5>

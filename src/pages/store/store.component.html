@@ -1,0 +1,9 @@
+<div class="store-container row gap-3 justify-content-center">
+  <div (click)="openDialog(item)" [class.card-cursor]="item.locked" class="col-4 text-center gap-1 item-card" *ngFor="let item of storeItems">
+    <img style="filter: drop-shadow(0 0 0.75rem blue)" width="150" src="{{ item.imgSrc }}" alt="Coin">
+    <p style="color: white; margin-top: 10px; margin-bottom: 0">{{ item.profitByTib }} Tib</p>
+    <span style="color: wheat" class="m-0">{{ item.costByStar }} ⭐</span>
+    <div [class.card-layer]="item.locked"></div>
+    <div *ngIf="item.locked" [class.locked]="item.locked">Locked</div>
+  </div>
+</div>

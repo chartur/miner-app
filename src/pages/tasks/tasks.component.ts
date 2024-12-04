@@ -8,6 +8,7 @@ import {Observable} from "rxjs";
 import {Wallet} from "../../interface/models/wallet";
 import {TasksStore} from "../../stores/tasks.store";
 import {Task} from "../../interface/models/task";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-tasks',
@@ -42,11 +43,16 @@ export class TasksComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private walletStore: WalletStore,
-    private tasksStore: TasksStore
+    private tasksStore: TasksStore,
+    private router: Router,
   ) {}
 
   ngOnInit() {
     this.tasksStore.getAllTasks();
+  }
+
+  public navigateStore(): void {
+    this.router.navigate(['store']);
   }
 
   public completeTheTask (data: Task): void {

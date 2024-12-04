@@ -1,0 +1,40 @@
+.store-container {
+  width: 100%;
+}
+
+.item-card {
+  position: relative;
+  cursor: pointer;
+  background: #ffffff1a;
+  border: 1px solid #61365e;
+  border-radius: 15px;
+  padding-block: 15px;
+}
+
+.card-cursor{
+  cursor: unset!important;
+}
+
+.card-layer {
+  position: absolute;
+  width: 100%;
+  opacity: 0.7;
+  background: #000000;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 15px;
+  z-index: 1;
+}
+
+.locked {
+  z-index: 2;
+  position: absolute;
+  font-size: 48px;
+  font-weight: 400;
+  color: #e2e2e2;
+  border: 3px solid #ffe1e1;
+  top: 30%;
+  left: 4%;
+  transform: rotate(-45deg);
+}

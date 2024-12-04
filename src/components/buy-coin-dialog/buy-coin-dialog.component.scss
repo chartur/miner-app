@@ -1,0 +1,20 @@
+.dialog-content {
+  background-image: radial-gradient(circle, rgb(63, 133, 200) 0%, rgb(0, 0, 0) 100%);
+}
+
+.item-card {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.coin-image{
+  animation: spinner 0.9s linear;
+}
+@keyframes spinner {
+  0% { transform: scale(1) }
+  50% { transform: scale(1.1) }
+  100% { transform: scale(1) }
+}
