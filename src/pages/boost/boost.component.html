@@ -20,15 +20,15 @@
     </span>
   </div>
   <div class="w-100">
-    <button (click)="openReminderDialog()" class="btn active-claim-btn w-100">
+    <button (click)="openReminderDialog()" [disabled]="isReminderActive$ | async" class="btn active-claim-btn w-100">
       <span>Reminder</span>
-      <span style="color: rgb(255, 205, 0)"> 100 ⭐</span>
+      <span style="color: rgb(255, 205, 0)"> 50 ⭐</span>
     </button>
   </div>
   <div class="w-100">
     <button (click)="openAutoClaimModal()" class="btn active-claim-btn w-100">
       AUTO Claimer
-      <span style="color: rgb(255, 205, 0)">200 ⭐</span>
+      <span style="color: rgb(255, 205, 0)">100 ⭐</span>
     </button>
   </div>
 </div>

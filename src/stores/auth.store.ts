@@ -10,6 +10,7 @@ import {AuthDataResponseDto} from "../interface/dto/auth-data.response.dto";
 import {WalletStore} from "./wallet.store";
 import {environment} from "../environments/environment";
 import {BoostStore} from "./boost.store";
+import {UserSettingsStore} from "./user-settings.store";
 
 interface AuthState {
   user?: User,
@@ -74,6 +75,7 @@ export class AuthStore extends ComponentStore<AuthState> implements OnStoreInit 
             this.walletStore.setWalletDetails(authData.user.wallet);
             this.boostStore.setBoostSuccess(authData.user.boost);
             this.boostStore.setPurchasesBoosts(authData.user.boosts);
+            this.userSettingsStore.setSettingsSuccess(authData.user.settings!)
             this.storageService.set('user', authData.user);
             this.storageService.set('token', authData.token);
           },
@@ -97,6 +99,7 @@ export class AuthStore extends ComponentStore<AuthState> implements OnStoreInit 
             this.walletStore.setWalletDetails(user.wallet);
             this.boostStore.setBoostSuccess(user.boost);
             this.boostStore.setPurchasesBoosts(user.boosts);
+            this.userSettingsStore.setSettingsSuccess(user.settings!)
             this.storageService.set('user', user);
           },
           error: (e) => {
@@ -137,6 +140,7 @@ export class AuthStore extends ComponentStore<AuthState> implements OnStoreInit 
     private storageService: StorageService,
     private walletStore: WalletStore,
     private boostStore: BoostStore,
+    private userSettingsStore: UserSettingsStore
   ) {
     super(initialState);
   }
