@@ -1,4 +1,4 @@
-import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogClose, MatDialogContent, MatDialogRef} from "@angular/material/dialog";
 import {MatButton} from "@angular/material/button";
 import {TelegramService} from "../../services/telegram.service";
@@ -34,6 +34,7 @@ export class TaskDialogComponent implements OnInit, OnDestroy {
     private telegramService: TelegramService,
     private taskStore: TasksStore,
     private uiService: UiService,
+    private cdRef: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -71,6 +72,7 @@ export class TaskDialogComponent implements OnInit, OnDestroy {
       this.telegramService.openInvoice(link!, (state) => {
         if (state === 'paid') {
           this.isCLickedJoined = true;
+          this.cdRef.detectChanges();
         }
       })
     });
