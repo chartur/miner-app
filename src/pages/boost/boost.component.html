@@ -20,8 +20,8 @@
     </span>
   </div>
   <div class="w-100">
-    <button (click)="openReminderDialog()" [disabled]="isReminderActive$ | async" class="btn active-claim-btn w-100">
-      <span>Reminder</span>
+    <button (click)="openReminderDialog()" class="btn active-claim-btn w-100">
+      <span>{{ 'reminder' | translate }}</span>
       <span style="color: rgb(255, 205, 0)"> 50 ⭐</span>
     </button>
   </div>

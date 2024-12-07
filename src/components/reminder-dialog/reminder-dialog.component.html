@@ -10,8 +10,8 @@
     </div>
     <img class="active-claim-img" width="74" src="/assets/icon-reminder.png" alt="boost-img">
     <p class="act-auto-claim text-white m-0">
-      {{ 'reminder_info' | translate }}
+      {{ 'reminder_info' | translate }} <br> <span style="text-decoration: underline"> <b> {{ (isReminderActive$ | async) ? ('active_to' | translate) + ' - ' + (reminderValidUntil$ | async | date: 'M/d/yy, h:mm a') : '' }}</b></span>
     </p>
-    <button (click)="buyReminder()" class="btn buy-bonus">{{ 'buy_for' | translate }} 50 ⭐</button>
+    <button [disabled]="isReminderActive$ | async" (click)="buyReminder()" class="btn buy-bonus">{{ 'buy_for' | translate }} 50 ⭐</button>
   </div>
 </mat-dialog-content>
