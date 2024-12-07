@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build:dev:watch": "ng build --configuration=development --watch --verbose",
     "build:dev": "ng build --configuration=development",
-    "build:staging": "ng build --configuration=staging && cp server.js dist/browser",
+    "build:staging": "ng build --configuration=staging",
     "build:prod": "ng build --configuration=production",
     "test": "ng test"
   },
