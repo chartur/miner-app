@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build:dev:watch": "ng build --configuration=development --watch --verbose",
+    "build:dev:watch": "ng build --configuration=production --watch --verbose",
     "build:dev": "ng build --configuration=development",
     "build:staging": "ng build --configuration=staging",
     "build:prod": "ng build --configuration=production",
@@ -26,7 +26,6 @@
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
     "@tonconnect/ui": "^2.0.9",
-    "angular-google-tag-manager": "^1.11.0",
     "bootstrap": "^5.3.3",
     "canvas-confetti": "^1.9.3",
     "express": "^4.19.2",

@@ -10,8 +10,9 @@ import {delay, filter, Observable, take} from "rxjs";
 import {AppViaWebNotWorkingComponent} from "../pages/app-via-web-not-working/app-via-web-not-working.component";
 import {RefsStore} from "../stores/refs-store.service";
 import {version} from "../app-version";
-import {GoogleTagManagerService} from "angular-google-tag-manager";
 import {environment} from "../environments/environment";
+
+export declare var gtag : any;
 
 @Component({
   selector: 'app-root',
@@ -37,8 +38,7 @@ export class AppComponent implements OnInit {
   constructor(
     private authStore: AuthStore,
     private refStore: RefsStore,
-    private router: Router,
-    private gtmService: GoogleTagManagerService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -58,15 +58,17 @@ export class AppComponent implements OnInit {
   }
 
   private googleTagSub(): void {
-    this.router.events.forEach(item => {
-      if (item instanceof NavigationEnd) {
-        const gtmTag = {
-          event: 'page',
-          pageName: item.url
-        };
-
-        this.gtmService.pushTag(gtmTag);
-      }
-    });
+    this.router.events.
+      pipe(
+        filter((item) => item instanceof NavigationEnd)
+      )
+      .subscribe(item => {
+        console.log("test");
+        if (item instanceof NavigationEnd) {
+          gtag('event', 'page_view', {
+            page_path: item.url,
+          });
+        }
+      });
   }
 }

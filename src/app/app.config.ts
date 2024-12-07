@@ -14,20 +14,19 @@ import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from "@angular/material/snack-bar";
 import {jwtInterceptor} from "../interceptors/jwt.interceptor";
 import {RefsStore} from "../stores/refs-store.service";
 import {WalletStore} from "../stores/wallet.store";
-import {getUserInitialData, getUserInitialDataDebug} from "../factories/get-user-initial-data";
+import {getUserInitialData} from "../factories/get-user-initial-data";
 import {telegramInitializer} from "../factories/telegram-initializer";
 import {languageInitializer} from "../factories/language-initializer";
 import {CashoutStore} from "../stores/cashout.store";
 import {ConfigStore} from "../stores/config.store";
 import {configInitializer} from "../factories/config-initializer";
-import {environment} from "../environments/environment";
-import {provideGoogleTagManager} from "angular-google-tag-manager";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
-const providers = [
+export const appConfig: ApplicationConfig = {
+  providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes), provideAnimationsAsync('noop'),
     provideHttpClient(
@@ -74,16 +73,5 @@ const providers = [
       deps: [ConfigStore, AuthStore],
       multi: true
     },
-  ];
-
-if (environment.production) {
-  providers.push(
-    provideGoogleTagManager({
-      id: 'G-Q0G3V4PMDW'
-    })
-  )
-}
-
-export const appConfig: ApplicationConfig = {
-  providers
+  ]
 };
