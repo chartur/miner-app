@@ -6,8 +6,9 @@ import {TranslateModule} from "@ngx-translate/core";
 import {Task} from "../../interface/models/task";
 import {TasksStore} from "../../stores/tasks.store";
 import {NgIf} from "@angular/common";
-import {Subscription} from "rxjs";
+import {filter, Subscription, take} from "rxjs";
 import {UiService} from "../../services/ui.service";
+import {TaskAction} from "../../interface/enum/task-action";
 
 @Component({
   selector: 'app-task-dialog',
@@ -53,10 +54,34 @@ export class TaskDialogComponent implements OnInit, OnDestroy {
       return
     }
 
+    switch (this.data.action) {
+      case TaskAction.STAR_INVOICE:
+        return this.handleStarInvoice();
+      default:
+        return this.handleLinkClick();
+    }
+
+  }
+
+  private handleStarInvoice(): void {
+    this.taskStore.starInvoiceLink$.pipe(
+      filter((link) => !!link),
+      take(1)
+    ).subscribe((link) => {
+      this.telegramService.openInvoice(link!, (state) => {
+        if (state === 'paid') {
+          this.isCLickedJoined = true;
+        }
+      })
+    });
+    this.taskStore.getStarInvoiceLink(this.data.id);
+  }
+
+  private handleLinkClick(): void {
     try {
-      this.telegramService.openTelegramLink(this.data.link)
+      this.telegramService.openTelegramLink(this.data.link!)
     } catch (e) {
-      this.telegramService.openLink(this.data.link)
+      this.telegramService.openLink(this.data.link!)
     }
 
     setTimeout(() => {

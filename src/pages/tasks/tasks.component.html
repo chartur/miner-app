@@ -22,7 +22,7 @@
     <ng-template #loaded>
       <button [disabled]="task.isCompleted" *ngFor="let task of tasks$ | async" (click)="completeTheTask(task)" class="btn task-btn d-flex justify-content-between">
         <div>
-          <img width="24" src="{{ task.icon }}" alt="icon">
+          <img *ngIf="task.icon" width="24" src="{{ task.icon }}" alt="icon">
           <span class="ms-1">{{ task.title }}</span>
         </div>
         <div *ngIf="!task.isCompleted; else taskCompleted">

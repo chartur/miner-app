@@ -22,6 +22,7 @@ export const getEndpoints = (apiUrl: string) => {
     tasks: {
       getAll: `${apiUrl}/tasks`,
       complete: `${apiUrl}/tasks/complete`,
+      starInvoice: `${apiUrl}/tasks/star-invoice`,
     },
     config: {
       get: `${apiUrl}/config`

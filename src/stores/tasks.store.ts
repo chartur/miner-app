@@ -10,12 +10,14 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 
 interface TasksState {
   data: Task[],
+  starInvoiceLink?: string,
   loading: boolean,
   error: unknown,
 }
 
 const initialState: TasksState = {
   data: [],
+  starInvoiceLink: undefined,
   loading: false,
   error: undefined
 }
@@ -25,6 +27,7 @@ const initialState: TasksState = {
 })
 export class TasksStore extends ComponentStore<TasksState>{
   public readonly tasks$: Observable<Task[]> = this.select((state) => state.data);
+  public readonly starInvoiceLink$: Observable<string | undefined> = this.select((state) => state.starInvoiceLink);
   public readonly loading$: Observable<boolean> = this.select((state) => state.loading);
   public readonly error$: Observable<unknown> = this.select((state) => state.error);
 
@@ -63,6 +66,18 @@ export class TasksStore extends ComponentStore<TasksState>{
     error,
     loading: false,
   }));
+  private readonly setStarInvoiceLinkSuccess = this.updater((state, payload: string | undefined) => ({
+    ...state,
+    error: undefined,
+    loading: false,
+    starInvoiceLink: payload,
+  }));
+  private readonly setStarInvoiceLinkFailure = this.updater((state, error: unknown) => ({
+    ...state,
+    error,
+    loading: false,
+    starInvoiceLink: undefined,
+  }));
 
   public readonly getAllTasks = this.effect((body$: Observable<void>) => {
     return body$.pipe(
@@ -80,6 +95,26 @@ export class TasksStore extends ComponentStore<TasksState>{
       ))
     )
   });
+
+  public readonly getStarInvoiceLink = this.effect((body$: Observable<string>) => {
+    return body$.pipe(
+      tap(() => this.setLoadingState(true)),
+      tap(() => this.setStarInvoiceLinkSuccess(undefined)),
+      switchMap((taskId) => this.tasksService.getStarInvoiceLink(taskId).pipe(
+        tap({
+          next: (data) => {
+            this.setStarInvoiceLinkSuccess(data.link)
+          },
+          error: (err) => {
+            const errorMessage = err.error.message || err.message;
+            this.setStarInvoiceLinkFailure(err);
+            this.matSnackBar.open(errorMessage);
+          }
+        }),
+        catchError(() => EMPTY)
+      ))
+    )
+  })
 
   public readonly complete = this.effect((body$: Observable<string>) => {
     return body$.pipe(
@@ -100,7 +135,7 @@ export class TasksStore extends ComponentStore<TasksState>{
         catchError(() => EMPTY)
       ))
     )
-  })
+  });
 
   constructor(
     private tasksService: TasksService,
