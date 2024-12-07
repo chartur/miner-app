@@ -9,6 +9,7 @@
     <div style="height: 60px!important;">
       <img class="boost-img" width="60" src="{{ data.imgSrc }}" alt="boost-img">
     </div>
+    <span style="text-align: center; color: bisque">{{ 'transaction_confirmed' | translate }}</span>
     <p class="buy-bonus-info" [innerText]="description$ | async"></p>
     <button [disabled]="loading$ | async" class="btn buy-bonus" (click)="activate()">
       {{ 'activate' | translate }}
