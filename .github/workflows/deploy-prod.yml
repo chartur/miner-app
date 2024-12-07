@@ -24,7 +24,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install --legacy-peer-deps
+          npm install
 
       # Step 3: Build the NestJS application
       - name: Build the application
