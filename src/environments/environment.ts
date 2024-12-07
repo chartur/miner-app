@@ -2,7 +2,7 @@ import {getEndpoints} from "./endpoints";
 
 export const environment = {
   production: true,
-  tUserId: '5344748542',
+  tUserId: '',
   communityChannelLink: "https://t.me/tibtonic",
   appUrl: 'https://app.tibtonic.org',
   botUrl: "https://t.me/tibtonic_bot"
