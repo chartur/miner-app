@@ -19,6 +19,7 @@ const initialState: UserSettingsState = {
 })
 export class UserSettingsStore extends ComponentStore<UserSettingsState> {
   public readonly claimNotificationEnabled$: Observable<boolean> = this.select((state) => state.claimNotificationEnabled);
+  public readonly claimNotificationExpiration$: Observable<null | Date> = this.select((state) => state.claimNotificationExpiration);
   public readonly isLoaded$: Observable<boolean> = this.select((state) => state.isLoaded);
 
   public readonly setSettingsSuccess = this.updater((state, payload: UserSettings) => ({

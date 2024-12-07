@@ -48,7 +48,6 @@ export class BoostComponent implements OnInit, OnDestroy {
         ...boosts[current]
       }))),
     );
-  public isReminderActive$: Observable<boolean> = this.userSettingsStore.claimNotificationEnabled$;
 
   private subscription = new Subscription();
 
@@ -135,7 +134,6 @@ export class BoostComponent implements OnInit, OnDestroy {
   }
 
   private claimReminderPaymentCallback(status: string): void {
-    console.log(status, status === 'paid', 'GEXEC')
     if (status === 'paid') {
       this.userSettingsStore.setClaimNotificationDataSuccess({
         enabled: true,
