@@ -28,6 +28,7 @@ export class TaskDialogComponent implements OnInit, OnDestroy {
   public isCLickedJoined: boolean = false
   public data: Task = inject<Task>(MAT_DIALOG_DATA);
   private subscriptions = new Subscription();
+  public claimBtnLoading: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<TaskDialogComponent>,
@@ -80,6 +81,11 @@ export class TaskDialogComponent implements OnInit, OnDestroy {
   }
 
   private handleLinkClick(): void {
+    if(this.data.isCompleted) {
+      return
+    }
+    this.isCLickedJoined = true;
+    this.claimBtnLoading = true;
     try {
       this.telegramService.openTelegramLink(this.data.link!)
     } catch (e) {
@@ -87,8 +93,8 @@ export class TaskDialogComponent implements OnInit, OnDestroy {
     }
 
     setTimeout(() => {
-      this.isCLickedJoined = true;
-    }, 2000);
+      this.claimBtnLoading = false;
+    }, 4000);
   }
 
   public confirmTask(): void {
