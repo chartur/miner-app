@@ -60,6 +60,7 @@ export class TasksComponent implements OnInit {
       closeOnNavigation: true,
       ariaModal: true,
       panelClass: "dialog-style",
+      disableClose: true,
       data
     });
   }

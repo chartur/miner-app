@@ -5,6 +5,7 @@ import {User} from "../interface/models/user";
 import {Language} from "../interface/enum/language";
 import {Observable, Subject} from "rxjs";
 import {environment} from "../environments/environment";
+import {TgInvoiceStatusType} from "../interface/types/tg-invoice-status.type";
 
 @Injectable({
   providedIn: 'root'
@@ -54,7 +55,7 @@ export class TelegramService {
     this.app.openTelegramLink(url);
   }
 
-  public openInvoice(link: string, callback?: (data: any) => void) {
+  public openInvoice(link: string, callback?: (state: TgInvoiceStatusType) => void) {
     this.app.openInvoice(link, callback);
   }
 
