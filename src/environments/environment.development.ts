@@ -4,7 +4,7 @@ export const environment = {
   production: false,
   tUserId: '5344748542',
   communityChannelLink: "https://t.me/+rmvNDW3MDwI4NjJi",
-  appUrl: 'https://virtual.ngrok.dev',
+  appUrl: 'https://rnlwi-5-77-202-94.a.free.pinggy.link',
   botUrl: "https://t.me/toon_miner_local_bot",
 };
 
