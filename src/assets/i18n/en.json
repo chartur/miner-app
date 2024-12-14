@@ -81,5 +81,6 @@
   "transaction_confirmed": "The transaction will be confirmed within 3 minutes ⌛",
   "active_to": "Active until",
   "reminder": "Reminder",
-  "reminder_info": "Our app mines real TON Coins, ensuring genuine rewards for your efforts. Activate the Reminder for just 50 ⭐ and get notified exactly when your claim is ready—never miss out on real earnings!"
+  "reminder_info": "Our app mines real TON Coins, ensuring genuine rewards for your efforts. Activate the Reminder for just 50 ⭐ and get notified exactly when your claim is ready—never miss out on real earnings!",
+  "invalid_refs_count": "You don't have enough friends invited"
 }

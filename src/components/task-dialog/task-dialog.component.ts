@@ -2,13 +2,16 @@ import {ChangeDetectorRef, Component, inject, OnDestroy, OnInit} from '@angular/
 import {MAT_DIALOG_DATA, MatDialogClose, MatDialogContent, MatDialogRef} from "@angular/material/dialog";
 import {MatButton} from "@angular/material/button";
 import {TelegramService} from "../../services/telegram.service";
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Task} from "../../interface/models/task";
 import {TasksStore} from "../../stores/tasks.store";
 import {NgIf} from "@angular/common";
-import {filter, Subscription, take} from "rxjs";
+import {filter, map, Subscription, switchMap, take, tap} from "rxjs";
 import {UiService} from "../../services/ui.service";
 import {TaskAction} from "../../interface/enum/task-action";
+import {RefsStore} from "../../stores/refs-store.service";
+import {RefTaskDetails} from "../../interface/other/task-details/ref-task.details";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-task-dialog',
@@ -36,6 +39,9 @@ export class TaskDialogComponent implements OnInit, OnDestroy {
     private taskStore: TasksStore,
     private uiService: UiService,
     private cdRef: ChangeDetectorRef,
+    private refsStore: RefsStore,
+    private matSnackBar: MatSnackBar,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit() {
@@ -59,10 +65,36 @@ export class TaskDialogComponent implements OnInit, OnDestroy {
     switch (this.data.action) {
       case TaskAction.STAR_INVOICE:
         return this.handleStarInvoice();
+      case TaskAction.REF:
+        return this.handleRefCheck();
       default:
         return this.handleLinkClick();
     }
+  }
 
+  private handleRefCheck(): void {
+    this.refsStore.refsCount$
+      .pipe(
+        switchMap((count) => this.refsStore.loaded$.pipe(
+          tap((state) => {
+            if (!state) {
+              this.refsStore.loadRefs()
+            }
+          }),
+          filter(state => state),
+          take(1),
+          map(() => count)
+        ))
+      )
+      .subscribe((count) => {
+        if (count >= (this.data.details as RefTaskDetails).count) {
+          this.isCLickedJoined = true;
+        } else {
+          this.matSnackBar.open(
+            this.translateService.instant('invalid_refs_count')
+          )
+        }
+      });
   }
 
   private handleStarInvoice(): void {

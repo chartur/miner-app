@@ -15,6 +15,7 @@ interface RefState {
   data: Ref[],
   totalRevenue: number,
   loading: boolean,
+  loaded: boolean,
   error: unknown,
   updatedAt?: Date,
 }
@@ -23,6 +24,7 @@ const initState: RefState = {
   data: [],
   totalRevenue: 0,
   loading: false,
+  loaded: false,
   error: undefined,
   updatedAt: undefined,
 }
@@ -34,7 +36,9 @@ export class RefsStore extends ComponentStore<RefState> implements OnStoreInit {
 
   public readonly totalRevenue$: Observable<number> = this.select((state) => state.totalRevenue);
   public readonly refs$: Observable<Ref[]> = this.select((state) => state.data);
+  public readonly refsCount$: Observable<number> = this.select((state) => state.data.length);
   public readonly loading$: Observable<boolean> = this.select((state) => state.loading);
+  public readonly loaded$: Observable<boolean> = this.select((state) => state.loaded);
   public readonly error$: Observable<unknown> = this.select((state) => state.error);
 
   private _successfullyCollected: Subject<void> = new Subject<void>();
@@ -50,6 +54,7 @@ export class RefsStore extends ComponentStore<RefState> implements OnStoreInit {
     data: payload.refs,
     totalRevenue: payload.totalRevenue,
     loading: false,
+    loaded: true,
     error: undefined,
     updatedAt: new Date()
   }))
@@ -58,6 +63,7 @@ export class RefsStore extends ComponentStore<RefState> implements OnStoreInit {
     error,
     data: [],
     loading: false,
+    loaded: false,
   }));
 
   public readonly loadRefs = this.effect((body$: Observable<void>) => {
@@ -140,7 +146,10 @@ export class RefsStore extends ComponentStore<RefState> implements OnStoreInit {
   ngrxOnStoreInit() {
     const data = this.localStorageService.get<RefState>('refs');
     if (data) {
-      this.setState(data)
+      this.setState({
+        ...data,
+        loaded: false,
+      })
     }
   }
 
