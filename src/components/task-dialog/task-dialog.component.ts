@@ -73,6 +73,7 @@ export class TaskDialogComponent implements OnInit, OnDestroy {
   }
 
   private handleRefCheck(): void {
+    this.claimBtnLoading = true;
     this.refsStore.refsCount$
       .pipe(
         switchMap((count) => this.refsStore.loaded$.pipe(
@@ -94,14 +95,18 @@ export class TaskDialogComponent implements OnInit, OnDestroy {
             this.translateService.instant('invalid_refs_count')
           )
         }
+        this.claimBtnLoading = false;
       });
   }
 
   private handleStarInvoice(): void {
+    this.claimBtnLoading = true;
+    this.taskStore.getStarInvoiceLink(this.data.id);
     this.taskStore.starInvoiceLink$.pipe(
       filter((link) => !!link),
       take(1)
     ).subscribe((link) => {
+      this.claimBtnLoading = false;
       this.telegramService.openInvoice(link!, (state) => {
         if (state === 'paid') {
           this.isCLickedJoined = true;
@@ -109,7 +114,6 @@ export class TaskDialogComponent implements OnInit, OnDestroy {
         }
       })
     });
-    this.taskStore.getStarInvoiceLink(this.data.id);
   }
 
   private handleLinkClick(): void {
