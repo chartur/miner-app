@@ -59,13 +59,7 @@ export class RefComponent implements OnInit, OnDestroy {
     if (!this.authUser) {
       return;
     }
-    const message = this.translateService.instant('shareText');
-    const url = new URL("https://t.me/share/url");
-    url.searchParams.append('url', this.userRefLink!);
-    url.searchParams.append('text', message);
-    this.telegramService.openTelegramLink(
-      url.toString().replace(/\+/g, '%20')
-    )
+    this.telegramService.shareInviteContent(this.authUser);
   }
 
   private initUserData(): void {

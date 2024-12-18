@@ -5,13 +5,14 @@ import {TelegramService} from "../../services/telegram.service";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Task} from "../../interface/models/task";
 import {TasksStore} from "../../stores/tasks.store";
-import {NgIf} from "@angular/common";
-import {filter, map, Subscription, switchMap, take, tap} from "rxjs";
+import {AsyncPipe, NgIf} from "@angular/common";
+import {filter, map, Observable, of, Subscription, switchMap, take, tap} from "rxjs";
 import {UiService} from "../../services/ui.service";
 import {TaskAction} from "../../interface/enum/task-action";
 import {RefsStore} from "../../stores/refs-store.service";
 import {RefTaskDetails} from "../../interface/other/task-details/ref-task.details";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {AuthStore} from "../../stores/auth.store";
 
 @Component({
   selector: 'app-task-dialog',
@@ -21,7 +22,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
     MatDialogClose,
     MatDialogContent,
     TranslateModule,
-    NgIf
+    NgIf,
+    AsyncPipe
   ],
   templateUrl: './task-dialog.component.html',
   styleUrl: './task-dialog.component.scss'
@@ -32,6 +34,17 @@ export class TaskDialogComponent implements OnInit, OnDestroy {
   public data: Task = inject<Task>(MAT_DIALOG_DATA);
   private subscriptions = new Subscription();
   public claimBtnLoading: boolean = false;
+  public isActionButtonVisible: boolean = false;
+  public actionButtonText$: Observable<string> = of(this.data.action).pipe(
+    map((type) => {
+      switch (type) {
+        case TaskAction.REF:
+          return this.translateService.instant('invite_friends');
+        default:
+          return ''
+      }
+    })
+  )
 
   constructor(
     public dialogRef: MatDialogRef<TaskDialogComponent>,
@@ -41,7 +54,8 @@ export class TaskDialogComponent implements OnInit, OnDestroy {
     private cdRef: ChangeDetectorRef,
     private refsStore: RefsStore,
     private matSnackBar: MatSnackBar,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private authStore: AuthStore,
   ) {}
 
   ngOnInit() {
@@ -72,6 +86,22 @@ export class TaskDialogComponent implements OnInit, OnDestroy {
     }
   }
 
+  public handleActionButtonClick(): void {
+    switch (this.data.action) {
+      case TaskAction.REF:
+        this.authStore.user$.pipe(
+          take(1),
+          filter(authUser => !!authUser),
+        ).subscribe((authUser) => {
+          this.telegramService.shareInviteContent(authUser!);
+        });
+    }
+  }
+
+  public confirmTask(): void {
+    this.taskStore.complete(this.data.id);
+  }
+
   private handleRefCheck(): void {
     this.claimBtnLoading = true;
     this.refsStore.refsCount$
@@ -90,7 +120,9 @@ export class TaskDialogComponent implements OnInit, OnDestroy {
       .subscribe((count) => {
         if (count >= (this.data.details as RefTaskDetails).count) {
           this.isCLickedJoined = true;
+          this.isActionButtonVisible = false;
         } else {
+          this.isActionButtonVisible = true;
           this.matSnackBar.open(
             this.translateService.instant('invalid_refs_count')
           )
@@ -131,9 +163,5 @@ export class TaskDialogComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.claimBtnLoading = false;
     }, 4000);
-  }
-
-  public confirmTask(): void {
-    this.taskStore.complete(this.data.id);
   }
 }

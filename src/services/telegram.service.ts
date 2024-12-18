@@ -6,6 +6,7 @@ import {Language} from "../interface/enum/language";
 import {Observable, Subject} from "rxjs";
 import {environment} from "../environments/environment";
 import {TgInvoiceStatusType} from "../interface/types/tg-invoice-status.type";
+import {TranslateService} from "@ngx-translate/core";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class TelegramService {
   public qrStream$: Observable<string> = this._qrStream.asObservable();
 
   constructor(
-    private storageService: StorageService
+    private storageService: StorageService,
+    private translateService: TranslateService,
   ) {}
 
   public openTelegramCommunity(): void {
@@ -61,6 +63,19 @@ export class TelegramService {
 
   public get platform(): string {
     return window['Telegram'].WebApp.platform;
+  }
+
+  public shareInviteContent(authUser: User): void {
+    let userRefLink = new URL(environment.botUrl);
+    userRefLink.searchParams.append('start', authUser.tUserId.toString());
+
+    const message = this.translateService.instant('shareText');
+    const url = new URL("https://t.me/share/url");
+    url.searchParams.append('url', userRefLink.toString());
+    url.searchParams.append('text', message);
+    this.openTelegramLink(
+      url.toString().replace(/\+/g, '%20')
+    )
   }
 
   public readQR(): void {
